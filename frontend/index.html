@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Vision Experiment</title>
+</head>
+<body>
+    <div class="content-wrap">
+        <h1>Vision Experiment</h1>
+        
+        <p>This is an experiment being conducted by Jane Doe to test the differential combobulation of macular zombulae.</p>
+        
+        <h2>Before we start, please provide some information about yourself.</h2>
+        <p class="privacy-notice">Information will only be used for conducting this experiment, and results will be anonymized.</p>
+        
+        <form action="/experiment">
+            <p>
+                <label for="name">First and last name:</label><br>
+                <input type="text" id="name" name="name" required autofocus>
+            </p>
+            <p>
+                <label for="age">Age:</label><br>
+                <input type="number" id="age" name="age" required>
+            </p>
+            <p>
+                <label for="sex">Sex:</label><br>
+                <select id="sex" name="sex" required>
+                    <option value=""></option>
+                    <option value="female">Female</option>
+                    <option value="male">Male</option>
+                    <option value="other">Other</option>
+                </select>
+            </p>
+            <p>
+                <label for="color">Do you have any form of color deficiency or colorblindness?</label><br>
+                <select id="color" name="color" required>
+                    <option value=""></option>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </p>
+            <p>
+                <label for="lenses">Do you use corrective lenses (e.g. glasses or contacts)?</label><br>
+                <select id="lenses" name="lenses" required>
+                    <option value=""></option>
+                    <option value="no">No</option>
+                    <option value="yes_wearing">Yes, and I am wearing them for this experiment</option>
+                    <option value="yes_not_wearing">Yes, but I am NOT wearing them for this experiment</option>
+                </select>
+            </p>
+            
+            <input type="submit" value="Continue">
+        </form>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
