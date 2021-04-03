@@ -15,15 +15,19 @@ def home():
 
 
 # gets experiment
-@views.route("/experiment")
+@views.route("/experiment", methods=['POST', 'GET'])
 def experiment():
     """
     :return: experiment render template
     """
 
-    # get form data
+    if request.method == 'GET':
+        pass
+    if request.method == 'POST'
 
-    # form_data = request.form
-    # age = form_data['age']
+        # get form data
 
-    return render_template("experiment.html")
+        # form_data = request.form
+        # age = form_data['age']
+
+        return render_template("experiment.html")
