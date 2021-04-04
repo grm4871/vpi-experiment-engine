@@ -1,4 +1,5 @@
-dbinfo.py
 __pycache__
 .DS_Store
 .vscode/settings.json
+website/sat_exp_imgs
+

@@ -71,12 +71,26 @@ def bump_saturation(image, percent):
 
     return arr2im
 
+def main(num):
+    for i in range(num):
+        img = Image.open(f'sat_exp_imgs\\test\\img{i+1}_100.jpg')
+        for percent in [50,75,125,150,1000000]:
+            bump_saturation(img, percent*.01).convert("RGB").save(f'sat_exp_imgs\\test\\img{i+1}_{percent}.jpg', 'JPEG')
+
+
 if __name__ == '__main__':
     if(len(sys.argv) > 1):
-        path = sys.argv[1]
-        if(len(sys.argv) > 2):
-            percent = float(sys.argv[2])
-        else: percent = 1.5
-        bump_saturation(Image.open(path), percent).convert("RGB").save("output.jpg", "JPEG")
-    else: print("usage py filename.py imagepath sat_percent")
-     
+        if(sys.argv[1] == "-s"):
+            if(len(sys.argv) > 2):
+                path = sys.argv[2]
+                if(len(sys.argv) > 3):
+                    percent = float(sys.argv[3]) * .01
+                else: percent = 1.5
+                bump_saturation(Image.open(path), percent).convert("RGB").save("output.jpg", "JPEG")
+            else: print("usage: py filename.py -s imagepath sat_percent")
+        elif(sys.argv[1] == '-m'):
+            if(len(sys.argv) > 2):
+                main(int(sys.argv[2]))
+            else: print("usage: py filename.py -m num_of_images")
+        else: print('usage: py filename.py -m or -s')
+    else: print('usage: py filename.py -m or -s')
