@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="static/css/style.css">
     <title>Vision Experiment</title>
 </head>
 <body>
@@ -13,9 +13,9 @@
         <p>This is an experiment being conducted by Jane Doe to test the differential combobulation of macular zombulae.</p>
         
         <h2>Before we start, please provide some information about yourself.</h2>
-        <p class="privacy-notice">Information will only be used for conducting this experiment, and results will be anonymized.</p>
+        <p class="fine-print">Information will only be used for conducting this experiment, and results will be anonymized.</p>
         
-        <form action="/experiment">
+        <form action="/experiment" method="POST">
             <p>
                 <label for="name">First and last name:</label><br>
                 <input type="text" id="name" name="name" required autofocus>
