@@ -1,7 +1,12 @@
 # greg mockler
 # additional code for saturation experiment 
 
-from pillow import Image
+from PIL import Image
+import sys
+
+'''
+THIS CODE IS UNUSED AS THE SAME CAN BE DONE SIMPLY IN CSS 
+'''
 
 # Get the pixel from the given image
 def get_pixel(image, i, j):
@@ -29,7 +34,18 @@ def bump_saturation(image, percent):
     for i in range(width):
         for j in range(height):
             pixel = get_pixel(image, i, j)
-            pixels[i, j] = (pixel[0], pixel[1]*percent, pixel[2])
+            print(i, j)
+            pixels[i, j] = (pixel[0], int(pixel[1]*percent), pixel[2])
 
     # Return new image
-    return pixels
+    return new
+
+if __name__ == '__main__':
+    if(len(sys.argv) > 1):
+        path = sys.argv[1]
+        if(len(sys.argv) > 2):
+            percent = float(sys.argv[2])
+        else: percent = .5
+        bump_saturation(Image.open(path), percent).convert("RGB").save("output.jpg", "JPEG")
+    else: print("usage py filename.py imagepath sat_percent")
+     
