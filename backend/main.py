@@ -1,7 +1,5 @@
-# aaron berghash
 # greg mockler
-# tanner bradford
-# ranen mirot
+# quinn tucker
 
 """
 
