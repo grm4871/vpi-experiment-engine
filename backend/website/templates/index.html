@@ -15,7 +15,7 @@
         <h2>First, please provide some information about yourself.</h2>
         <p class="fine-print">Information will only be used for conducting this experiment, and results will be anonymized.</p>
         
-        <form action="/experiment" method="POST">
+        <form method="POST">
             {%- for q_id, q_info in questions.items() %}
                 <p>
                     {%- if q_info['type'] == 'radio' %}

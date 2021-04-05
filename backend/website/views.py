@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, session
+from flask import Blueprint, render_template, request, session, redirect, url_for
 import random as rand #paul
 
 # from connection import get_connection
@@ -70,12 +70,28 @@ def experiment():
     return render_template("experiment.html")
 
 
-@views.route("/quinn", methods=['GET'])
+@views.route("/quinn/", methods=['POST', 'GET'])
 def quinn():
-    return render_template("quinn/index.html", questions=INITIAL_QUESTIONS)
+    if request.method == 'POST':
+        # store the form data in the user's session
+        form_data = request.form
+        for field in INITIAL_QUESTIONS.keys():
+            session[field] = form_data[field]
 
-@views.route("/quinn/experiment", methods=['GET'])
+        # redirect to the experiment page
+        return redirect(url_for('.quinn_experiment'))
+
+    elif request.method == 'GET':
+        # show the experiment page
+        return render_template("quinn/index.html", questions=INITIAL_QUESTIONS)
+
+@views.route("/quinn/experiment")
 def quinn_experiment():
+    # if the user hasn't done the initial questions,
+    # redirect them to the home page
+    if not all(field in session for field in INITIAL_QUESTIONS.keys()):
+        return redirect(url_for('.quinn'))
+
     return render_template("quinn/experiment.html")
 
 
