@@ -18,7 +18,9 @@ def create_app():
     app.secret_key = secret_key
 
     from .views import views
+    app.register_blueprint(views)
 
-    app.register_blueprint(views, url_prefix='/')
+    from .quinn.views import views as quinn_views
+    app.register_blueprint(quinn_views)
 
     return app

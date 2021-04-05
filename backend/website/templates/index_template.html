@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/main/css/style.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
@@ -37,7 +37,5 @@
             <input type="submit" value="Continue">
         </form>
     </div>
-    
-    <!--<script src="/static/main/js/script.js"></script>-->
 </body>
 </html>

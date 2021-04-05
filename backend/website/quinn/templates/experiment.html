@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/quinn/css/style.css">
+    <link rel="stylesheet" href="{{url_for('.static', filename='style.css')}}">
     <title>Color Vision Experiment</title>
 </head>
 <body>
     <div id="crosshair"></div>
 
-    <script src="/static/quinn/js/rgb-lab/color.js"></script>
-    <script src="/static/quinn/js/script.js"></script>
+    <script src="{{url_for('.static', filename='rgb-lab/color.js')}}"></script>
+    <script src="{{url_for('.static', filename='script.js')}}"></script>
 </body>
 </html>
