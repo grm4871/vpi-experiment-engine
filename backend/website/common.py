@@ -1,6 +1,6 @@
 from flask import render_template, request, session, redirect, url_for
 
-__all__ = ['INITIAL_QUESTIONS', 'create_main_route', 'initial_form_completed']
+__all__ = ['INITIAL_QUESTIONS', 'create_main_route', 'is_initial_form_completed', 'finish_experiment']
 
 
 INITIAL_QUESTIONS = {
@@ -70,6 +70,19 @@ def create_main_route(blueprint, init_state_func):
             return render_template("index.html", questions=INITIAL_QUESTIONS)
 
 
-def initial_form_completed():
+def is_initial_form_completed():
     """Return whether the user has completed the initial questionnaire."""
     return all(field in session for field in INITIAL_QUESTIONS.keys())
+
+
+def finish_experiment(results):
+    """
+    TODO: docstring
+    """
+
+    # record the results along with the user's initial questionnaire answers
+    #TODO
+
+    # mark the experiment as done in the user's session
+    del session[request.blueprint + '_state']
+    session[request.blueprint + '_done'] = True

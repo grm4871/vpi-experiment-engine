@@ -14,7 +14,12 @@
 
         <ul>
             {%- for name in ['Quinn'] %}
-                <li><a href="{{url_for(name.lower()+'.main')}}">{{name}}'s experiment</a></li>
+                <li><a href="{{url_for(name.lower()+'.main')}}">
+                    {{name}}'s experiment
+                    {%- if session[name.lower()+'_done'] %}
+                        (completed &ndash; thanks!)
+                    {%- endif -%}
+                </a></li>
             {%- endfor %}
         </ul>
     </div>
