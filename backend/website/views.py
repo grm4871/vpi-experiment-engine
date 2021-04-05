@@ -6,15 +6,51 @@ import random as rand #paul
 views = Blueprint('views', __name__)
 
 
+INITIAL_QUESTIONS = {
+    'name': dict(
+        type='text',
+        label='Name:',
+    ),
+    'age': dict(
+        type='number',
+        label='Age:',
+    ),
+    'sex': dict(
+        type='radio',
+        label='Sex:',
+        options=[
+            ('female', 'Female'),
+            ('male',   'Male'),
+            ('other',  'Other'),
+        ],
+    ),
+    'color': dict(
+        type='radio',
+        label='Do you have any form of color deficiency or colorblindness?',
+        options=[
+            ('no',  'No'),
+            ('yes', 'Yes'),
+        ],
+    ),
+    'lenses': dict(
+        type='radio',
+        label='Do you use corrective lenses (e.g. glasses or contacts)?',
+        options=[
+            ('no',              'No'),
+            ('yes_wearing',     'Yes, and I am wearing them for this experiment'),
+            ('yes_not_wearing', 'Yes, but I am NOT wearing them for this experiment'),
+        ],
+    ),
+}
+
+
 # gets landing page
 @views.route("/")
 def home():
     """
     :return: index template
     """
-    return render_template("index.html")
-
-INITIAL_QUESTION_FIELDS = ['name', 'age', 'sex', 'color', 'lenses']
+    return render_template("index.html", questions=INITIAL_QUESTIONS)
 
 # gets experiment
 @views.route("/experiment", methods=['POST', 'GET'])
@@ -22,18 +58,26 @@ def experiment():
     if request.method == 'POST':
         # store the form data in the user's session
         form_data = request.form
-        for field in INITIAL_QUESTION_FIELDS:
+        for field in INITIAL_QUESTIONS.keys():
             session[field] = form_data[field]
-
-        # show the experiment page
-        return render_template("experiment.html")
 
     elif request.method == 'GET':
         # TODO: if the user hasn't done the initial questions,
         # redirect them to the home page
+        ...
 
-        # show the experiment page
-        return render_template("experiment.html")
+    # show the experiment page
+    return render_template("experiment.html")
+
+
+@views.route("/quinn", methods=['GET'])
+def quinn():
+    return render_template("quinn/index.html", questions=INITIAL_QUESTIONS)
+
+@views.route("/quinn/experiment", methods=['GET'])
+def quinn_experiment():
+    return render_template("quinn/experiment.html")
+
 
 NUM_SAT_EXPERIMENTS = 12
 
