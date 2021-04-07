@@ -7,7 +7,7 @@ views = Blueprint('quinn', __name__,
                   static_folder='static', template_folder='templates')
 
 
-create_main_route(views, lambda: dict(trial_num=1))
+create_main_route(views, lambda: dict(trials_done=0))
 
 
 @views.route('/experiment')
@@ -17,6 +17,10 @@ def experiment():
     if not is_initial_form_completed():
         return redirect(url_for('.main'))
 
-    finish_experiment([1,2,3])  # TODO: testing
-
-    return render_template('experiment.html')
+    state = get_experiment_state()
+    if state['trials_done'] == 3:
+        return finish_experiment([1,2,3])
+    else:
+        state['trials_done'] += 1
+        set_experiment_state(state)
+        return render_template('experiment.html')

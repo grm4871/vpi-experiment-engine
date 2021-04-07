@@ -3,7 +3,7 @@ import random as rand #paul
 
 # from connection import get_connection
 
-views = Blueprint('views', __name__)
+views = Blueprint('main', __name__)
 
 
 # gets landing page

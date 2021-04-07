@@ -1,6 +1,6 @@
 from flask import render_template, request, session, redirect, url_for
 
-__all__ = ['INITIAL_QUESTIONS', 'create_main_route', 'is_initial_form_completed', 'finish_experiment']
+__all__ = ['INITIAL_QUESTIONS', 'create_main_route', 'is_initial_form_completed', 'get_experiment_state', 'set_experiment_state', 'finish_experiment']
 
 
 INITIAL_QUESTIONS = {
@@ -75,6 +75,16 @@ def is_initial_form_completed():
     return all(field in session for field in INITIAL_QUESTIONS.keys())
 
 
+def get_experiment_state():
+    """Gets the current experiment state."""
+    return session[request.blueprint + '_state']
+
+
+def set_experiment_state(state):
+    """Sets the current experiment state."""
+    session[request.blueprint + '_state'] = state
+
+
 def finish_experiment(results):
     """
     TODO: docstring
@@ -86,3 +96,5 @@ def finish_experiment(results):
     # mark the experiment as done in the user's session
     del session[request.blueprint + '_state']
     session[request.blueprint + '_done'] = True
+
+    return redirect(url_for('main.home'))
