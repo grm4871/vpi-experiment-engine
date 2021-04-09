@@ -23,4 +23,8 @@ def create_app():
     from .quinn.views import views as quinn_views
     app.register_blueprint(quinn_views)
 
+    from .greg.views import views as greg_views
+    app.register_blueprint(greg_views)
+
+
     return app

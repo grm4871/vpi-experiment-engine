@@ -13,7 +13,7 @@
         <p>Help us collect data for our vision experiments!</p>
 
         <ul>
-            {%- for name in ['Quinn'] %}
+            {%- for name in ['Quinn', 'Greg'] %}
                 <li><a href="{{url_for(name.lower()+'.main')}}">
                     {{name}}'s experiment
                     {%- if session[name.lower()+'_done'] %}
