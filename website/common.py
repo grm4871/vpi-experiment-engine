@@ -1,5 +1,5 @@
 from flask import render_template, request, session, redirect, url_for
-import os
+from pathlib import Path
 import json
 
 __all__ = ['INITIAL_QUESTIONS', 'create_main_route', 'is_initial_form_completed', 'is_experiment_started', 'get_experiment_state', 'set_experiment_state', 'get_data_file_path', 'finish_experiment']
@@ -94,7 +94,7 @@ def set_experiment_state(state):
 
 def get_data_file_path():
     """Return the path of this experiment's data log file."""
-    return os.path.join('data', request.blueprint + '.json')
+    return Path('data') / (request.blueprint + '.json')
 
 
 def finish_experiment(results):
@@ -112,7 +112,9 @@ def finish_experiment(results):
     # record the results along with the user's initial questionnaire answers
     data = {field: session[field] for field in INITIAL_QUESTIONS.keys()}
     data['results'] = results
-    with open(get_data_file_path(), 'a') as f:
+    data_file = get_data_file_path()
+    data_file.parent.mkdir(exist_ok=True)
+    with data_file.open('a') as f:
         json.dump(data, f)
         f.write('\n')
 
