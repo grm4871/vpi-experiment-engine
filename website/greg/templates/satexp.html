@@ -5,12 +5,19 @@
     <meta charset="utf-8">
     <title>Saturation Experiment</title>
 
-    {% for i in range(experiment_data["num"]) %}
+    <form method="POST">
+        {% for i in range(experiment_data["num"]) %}
+            <div>
+                <img id='{{i}}a' src='images\img{{i}}_{{experiment_data["A"][i]}}' width=20%>
+                <img id='{{i}}b' src='images\img{{i}}_{{experiment_data["B"][i]}}' width=20%>
+                <input type="radio" id='button-{{i}}a' name='button-{{i}}'></input>
+                <input type="radio" id='button-{{i}}b' name='button-{{i}}'></input>
+            </div>
 
-        <img id='{{i}}a' src='images\img{{i}}_{{experiment_data["A"][i]}}'>
-        <img id='{{i}}b' src='images\img{{i}}_{{experiment_data["B"][i]}}'>
+        {% endfor %}        
+        <input type="submit" value="Submit">
+    </form>
 
-    {% endfor %}
 
 </head>
 

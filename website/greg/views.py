@@ -4,7 +4,7 @@ import random as rand #paul
 
 views = Blueprint('greg', __name__,
                   url_prefix='/greg',
-                  static_folder='static', template_folder='templates')
+                  static_folder='static', template_folder='\greg\templates')
 
 NUM_SAT_EXPERIMENTS = 12
 
@@ -18,8 +18,10 @@ def experiment():
     if not is_experiment_started():
         return redirect(url_for('.main'))
 
-
     experiment_data = get_experiment_state()
+
+    # if there is form data
+
     # do experiment RNG
     for i in range(NUM_SAT_EXPERIMENTS):
         original = 100
