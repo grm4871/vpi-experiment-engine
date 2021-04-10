@@ -20,16 +20,19 @@ def experiment():
 
     experiment_data = get_experiment_state()
 
-    print(request.form)
-
     # if there is form data
+    if('button-0' in request.form.to_dict().keys()):
+        experiment_data['results'] = []
+        for i in range(NUM_SAT_EXPERIMENTS):
+            experiment_data['results'].append(request.form.to_dict()['button-' + str(i)])
+        return finish_experiment(experiment_data)
 
     # do experiment RNG
     for i in range(NUM_SAT_EXPERIMENTS):
         original = 100
         altered = rand.choice([50,75,125,150])  
         experiment_data['A'].append(original)
-        experiment_data['B'].append(altered) 
+        experiment_data['B'].append(altered)
         if rand.getrandbits(1):
             # swap
             experiment_data['A'][i], experiment_data['B'][i] = experiment_data['B'][i], experiment_data['A'][i]
