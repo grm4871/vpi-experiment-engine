@@ -3,17 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='simple/simple.min.css')}}">
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    <div class="content-wrap">
+    <header>
         <h1>{{ self.title() }}</h1>
-        
+    </header>
+
+    <main>
         {% block description %}{% endblock %}
         
-        <h2>First, please provide some information about yourself.</h2>
-        <p class="fine-print">Information will only be used for conducting this experiment, and results will be anonymized.</p>
+        <hr>
+        <p>
+            <b>First, please provide some information about yourself.</b><br>
+            <small>Information will only be used for conducting this experiment,
+            and results will be anonymized.</small>
+        </p>
         
         <form method="POST">
             {%- for q_id, q_info in questions.items() %}
@@ -36,6 +42,6 @@
             
             <input type="submit" value="Continue">
         </form>
-    </div>
+    </main>
 </body>
 </html>

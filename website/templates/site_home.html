@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='simple/simple.min.css')}}">
     <title>Vision Experiments</title>
 </head>
 <body>
-    <div class="content-wrap">
+    <header>
         <h1>Vision Experiments</h1>
+    </header>
 
+    <main>
         <p>Help us collect data for our vision experiments!</p>
 
         <ul>
@@ -22,6 +24,6 @@
                 </a></li>
             {%- endfor %}
         </ul>
-    </div>
+    </main>
 </body>
 </html>
