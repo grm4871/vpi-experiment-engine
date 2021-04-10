@@ -16,6 +16,8 @@ def experiment():
     # redirect them to the home page
     if not is_initial_form_completed():
         return redirect(url_for('.main'))
+    #TODO: what if the user finished the experiment but then goes to /experiment?
+    # crash beacuse quinn_state is not in session
 
     state = get_experiment_state()
     if state['trials_done'] == 3:

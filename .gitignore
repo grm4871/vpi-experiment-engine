@@ -3,3 +3,4 @@ __pycache__
 .vscode/settings.json
 website/sat_exp_imgs
 secret_key
+/data/

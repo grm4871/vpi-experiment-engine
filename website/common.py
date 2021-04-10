@@ -1,6 +1,8 @@
 from flask import render_template, request, session, redirect, url_for
+import os
+import json
 
-__all__ = ['INITIAL_QUESTIONS', 'create_main_route', 'is_initial_form_completed', 'get_experiment_state', 'set_experiment_state', 'finish_experiment']
+__all__ = ['INITIAL_QUESTIONS', 'create_main_route', 'is_initial_form_completed', 'get_experiment_state', 'set_experiment_state', 'get_data_file_path', 'finish_experiment']
 
 
 INITIAL_QUESTIONS = {
@@ -85,13 +87,29 @@ def set_experiment_state(state):
     session[request.blueprint + '_state'] = state
 
 
+def get_data_file_path():
+    """Return the path of this experiment's data log file."""
+    return os.path.join('data', request.blueprint + '.json')
+
+
 def finish_experiment(results):
     """
-    TODO: docstring
+    Mark the experiment as done for this user, and return a redirect to the
+    top-level home page. The data in results, along with the user's initial
+    questionnaire answers, are saved to the next line in the data file as JSON.
+
+    :param results:
+        the experiment result data to save with the user metadata
+    :return:
+        a redirect to the top-level home page
     """
 
     # record the results along with the user's initial questionnaire answers
-    #TODO
+    data = {field: session[field] for field in INITIAL_QUESTIONS.keys()}
+    data['results'] = results
+    with open(get_data_file_path(), 'a') as f:
+        json.dump(data, f)
+        f.write('\n')
 
     # mark the experiment as done in the user's session
     del session[request.blueprint + '_state']
