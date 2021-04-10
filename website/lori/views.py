@@ -23,4 +23,4 @@ def experiment():
     else:
         state['trials_done'] += 1
         set_experiment_state(state)
-        return render_template('experiment.html')
+        return render_template('lori/experiment.html')

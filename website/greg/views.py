@@ -37,4 +37,4 @@ def experiment():
             # swap
             experiment_data['A'][i], experiment_data['B'][i] = experiment_data['B'][i], experiment_data['A'][i]
     set_experiment_state(experiment_data)
-    return render_template("satexp.html", experiment_data=experiment_data)
+    return render_template("greg/satexp.html", experiment_data=experiment_data)

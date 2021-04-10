@@ -69,7 +69,7 @@ def create_main_route(blueprint, init_state_func):
 
         elif request.method == 'GET':
             # show the experiment page
-            return render_template("index.html", questions=INITIAL_QUESTIONS)
+            return render_template(blueprint.name + "/index.html", questions=INITIAL_QUESTIONS)
 
 
 def is_initial_form_completed():
