@@ -13,9 +13,9 @@ create_main_route(views, lambda: dict(num=NUM_SAT_EXPERIMENTS, A=[], B=[]))
 # gets sat_experiment
 @views.route("/experiment", methods=['POST', 'GET'])
 def experiment():
-    # if the user hasn't done the initial questions,
-    # redirect them to the home page
-    if not is_initial_form_completed():
+    # if the user hasn't started the experiment,
+    # redirect them to the questionnaire page
+    if not is_experiment_started():
         return redirect(url_for('.main'))
 
 

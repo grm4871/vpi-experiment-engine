@@ -2,7 +2,7 @@ from flask import render_template, request, session, redirect, url_for
 import os
 import json
 
-__all__ = ['INITIAL_QUESTIONS', 'create_main_route', 'is_initial_form_completed', 'get_experiment_state', 'set_experiment_state', 'get_data_file_path', 'finish_experiment']
+__all__ = ['INITIAL_QUESTIONS', 'create_main_route', 'is_initial_form_completed', 'is_experiment_started', 'get_experiment_state', 'set_experiment_state', 'get_data_file_path', 'finish_experiment']
 
 
 INITIAL_QUESTIONS = {
@@ -75,6 +75,11 @@ def create_main_route(blueprint, init_state_func):
 def is_initial_form_completed():
     """Return whether the user has completed the initial questionnaire."""
     return all(field in session for field in INITIAL_QUESTIONS.keys())
+
+
+def is_experiment_started():
+    """Return whether the user has started (and not yet finished) the experiment."""
+    return (request.blueprint + '_state' in session) and is_initial_form_completed()
 
 
 def get_experiment_state():

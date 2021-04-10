@@ -12,12 +12,10 @@ create_main_route(views, lambda: dict(trials_done=0))
 
 @views.route('/experiment')
 def experiment():
-    # if the user hasn't done the initial questions,
-    # redirect them to the home page
-    if not is_initial_form_completed():
+    # if the user hasn't started the experiment,
+    # redirect them to the questionnaire page
+    if not is_experiment_started():
         return redirect(url_for('.main'))
-    #TODO: what if the user finished the experiment but then goes to /experiment?
-    # crash beacuse quinn_state is not in session
 
     state = get_experiment_state()
     if state['trials_done'] == 3:
