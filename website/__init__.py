@@ -26,5 +26,7 @@ def create_app():
     from .greg.views import views as greg_views
     app.register_blueprint(greg_views)
 
+    from .lori.views import views as lori_views
+    app.register_blueprint(lori_views)
 
     return app
