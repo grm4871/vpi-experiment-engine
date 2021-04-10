@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='simple/simple.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('.static', filename='style.css')}}">
+    <title>Instructions &ndash; Color Vision Experiment</title>
+</head>
+<body>
+    <header>
+        <h1>Quinn's Experiment</h1>
+    </header>
+
+    <main>
+        <h2>Instructions</h2>
+
+        <p>
+            You'll complete {{NUM_TRIALS}} trial{{NUM_TRIALS|pluralize}}.
+            During each trial, look at the cross in the center of the screen and 
+            <strong>don't look away until instructed to.</strong>
+        </p>
+        <p>
+            You'll see a bunch of circles.
+            <strong>Exactly one</strong> of them will be blinking, although it might be very subtle.
+            Here are a few examples:
+        </p>
+        <div class="circle-demo">
+            <div>
+                <div class="circle"></div>
+                <p>Not blinking</p>
+            </div>
+            <div>
+                <div class="circle blinking" data-index="0" data-magnitude="16"></div>
+                <p>Blinking</p>
+            </div>
+            <div>
+                <div class="circle blinking" data-index="0" data-magnitude="4"></div>
+                <p>Blinking</p>
+            </div>
+        </div>
+        <div class="circle-demo">
+            <div>
+                <div class="circle blinking" data-index="1" data-magnitude="30"></div>
+                <p>Blinking</p>
+            </div>
+            <div>
+                <div class="circle blinking" data-index="2" data-magnitude="30"></div>
+                <p>Blinking</p>
+            </div>
+        </div>
+        <p>
+            When you can tell which circle is blinking, press the <strong>space bar</strong>
+            and keep looking at the cross.
+            Once instructed, you can look away from the cross and click the circle
+            that you thought was blinking.
+        </p>
+        <form class="begin-form" method="POST" action="begin">
+            <input type="submit" value="Start experiment!">
+        </form>
+    </main>
+
+    <script src="{{url_for('.static', filename='rgb-lab/color.js')}}"></script>
+    <script src="{{url_for('.static', filename='script.js')}}"></script>
+</body>
+</html>

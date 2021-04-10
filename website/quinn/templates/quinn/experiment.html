@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="experiment">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('.static', filename='style.css')}}">
     <title>Color Vision Experiment</title>
 </head>
-<body>
+<body class="intro">
+    <div id="intro">
+        <h2>Trial {{trial_num}} / {{NUM_TRIALS}}</h2>
+        <p>Rest your eyes for a moment, and press the <strong>space bar</strong>
+        when you're ready.</p>
+    </div>
+
     <div id="crosshair"></div>
 
     <script src="{{url_for('.static', filename='rgb-lab/color.js')}}"></script>

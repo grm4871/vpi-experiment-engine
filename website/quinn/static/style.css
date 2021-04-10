@@ -1,12 +1,31 @@
-html, body {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
+body {
+    font-family: sans-serif;
 }
 
+html.experiment, html.experiment body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    /* overflow: hidden; */
+}
+
+body.intro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#intro {
+    text-align: center;
+}
+body:not(.intro) #intro {
+    display: none;
+}
+
+body.intro #crosshair {
+    display: none;
+}
 #crosshair {
     position: absolute;
     margin: 0;
@@ -32,15 +51,42 @@ body.stopped #crosshair {
 .circle {
     position: absolute;
     margin: 0;
-    /* top: 50%;
-    left: 50%; */
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    /* width: 100px;
-    height: 100px; */
+    width: 6.5em;
+    height: 6.5em;
     border-radius: 50%;
+    background-color: rgb(119, 119, 119);
     /* filter: blur(5px); */
     z-index: 1;
 }
 body.stopped .circle:hover {
     opacity: 0.5;
+}
+
+.circle-demo {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 1em 0;
+}
+.circle-demo > div {
+    margin: 0 1em;
+}
+.circle-demo > div p {
+    text-align: center;
+    margin-bottom: 0;
+}
+.circle-demo .circle {
+    position: relative;
+    top: unset;
+    left: unset;
+    transform: unset;
+}
+
+.begin-form {
+    display: flex;
+    justify-content: center;
 }

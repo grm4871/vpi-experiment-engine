@@ -6,8 +6,9 @@ views = Blueprint('quinn', __name__,
                   url_prefix='/quinn',
                   static_folder='static', template_folder='templates')
 
+NUM_TRIALS = 3000
 
-create_main_route(views, lambda: dict(trials_done=0))
+create_main_route(views, lambda: dict(intro_done=False, trials_done=0))
 
 
 @views.route('/experiment')
@@ -18,9 +19,22 @@ def experiment():
         return redirect(url_for('.main'))
 
     state = get_experiment_state()
-    if state['trials_done'] == 3:
-        return finish_experiment([1,2,3])
-    else:
+    if not state['intro_done']:
+        result = render_template('quinn/instructions.html', NUM_TRIALS=NUM_TRIALS)
+    elif state['trials_done'] < NUM_TRIALS:
         state['trials_done'] += 1
-        set_experiment_state(state)
-        return render_template('quinn/experiment.html')
+        result = render_template('quinn/experiment.html', trial_num=state['trials_done'], NUM_TRIALS=NUM_TRIALS)
+    else:
+        result = finish_experiment([1,2,3])
+    set_experiment_state(state)
+    return result
+
+
+
+@views.route('/begin', methods=['POST'])
+def begin():
+    # mark the intro as done and redirect back to the experiment
+    state = get_experiment_state()
+    state['intro_done'] = True
+    set_experiment_state(state)
+    return redirect(url_for('.experiment'))

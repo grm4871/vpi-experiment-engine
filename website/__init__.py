@@ -17,6 +17,13 @@ def create_app():
         SECRET_KEY_FILE.write_bytes(secret_key)
     app.secret_key = secret_key
 
+    @app.template_filter()
+    def pluralize(number, singular='', plural='s'):
+        if number == 1:
+            return singular
+        else:
+            return plural
+
     from .views import views
     app.register_blueprint(views)
 
