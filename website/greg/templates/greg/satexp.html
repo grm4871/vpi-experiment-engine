@@ -19,7 +19,8 @@
     
     
     <div id='pt2' hidden>
-        <h2>For the following images, select which image in each pair you think is unmodified. That is, which one didn't you see in the slideshow? If you can't tell, make your best guess.</h2>
+        <h2>For the following images, one in each pair is modified. Please select the one that you think you saw in the slideshow.
+             That is, can you tell which is the original? If you can't, make your best guess.</h2>
 
         <form method="POST">
             {% for i in range(experiment_data["num"]) %}
@@ -40,7 +41,7 @@
         var timer = 6;
         
         function nextImage() {
-            if(idx + 1 < SLIDESHOW_LENGTH) {
+            if(idx+1 < SLIDESHOW_LENGTH) {
                 document.getElementById('slideshow').src = `static\\images\\img${idx+2}_100.jpg`;
             } else {   
                 document.getElementById('pt1').hidden = true;
@@ -55,7 +56,7 @@
                 nextImage();
                 timer = 6;
             }
-            if(idx+2 == SLIDESHOW_LENGTH) {
+            if(idx+1 == SLIDESHOW_LENGTH) {
                 document.getElementById('timer').innerHTML = `img ${idx+1}/12 | experiment continues in ${timer}...`;    
             } else {
                 document.getElementById('timer').innerHTML = `img ${idx+1}/12 | next image in ${timer}...`;
