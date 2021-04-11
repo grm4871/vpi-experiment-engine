@@ -2,22 +2,69 @@
 <html lang="en" dir="ltr">
 
 <head>
-    <meta charset="utf-8">
-    <title>Saturation Experiment</title>
+    <script>
+        var SLIDESHOW_LENGTH = 12;
+    </script>
 
-    <form method="POST">
-        {% for i in range(experiment_data["num"]) %}
-            <div>
-                <img id='{{i}}a' src='images\img{{i}}_{{experiment_data["A"][i]}}' width=20%>
-                <img id='{{i}}b' src='images\img{{i}}_{{experiment_data["B"][i]}}' width=20%>
-                <input type="radio" id='button-{{i}}a' name='button-{{i}}' required></input>
-                <input type="radio" id='button-{{i}}b' name='button-{{i}}' required></input>
-            </div>
+    <div id='pt1'>
+        <h2>First, please watch this slideshow, and try to commit the images shown to memory. Try to especially remember the color balance or how "bright" the image feels.</h2>
 
-        {% endfor %}        
-        <input type="submit" value="Submit">
-    </form>
+        <h4 id='timer'>img 1/12 | next image in 6...</h4>
 
+        <img id='slideshow' src="static\images\img1_100.jpg" width=60%></img>
+
+        <meta charset="utf-8">
+        <title>Saturation Experiment</title>
+    </div>
+    
+    
+    <div id='pt2' hidden>
+        <h2>For the following images, select which image in each pair you think is unmodified. That is, which one didn't you see in the slideshow? If you can't tell, make your best guess.</h2>
+
+        <form method="POST">
+            {% for i in range(experiment_data["num"]) %}
+                <div>
+                    <img id='{{i}}a' src='static\images\img{{i+1}}_{{experiment_data["A"][i]}}.jpg' width=40%>
+                    <input type="radio" id='button-{{i}}a' name='button-{{i}}' required>A</input>
+                    <img id='{{i}}b' src='static\images\img{{i+1}}_{{experiment_data["B"][i]}}.jpg' width=40%>
+                    <input type="radio" id='button-{{i}}b' name='button-{{i}}' required>B</input>
+                </div>
+
+            {% endfor %}        
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <script>
+        var idx = 0;
+        var timer = 6;
+        
+        function nextImage() {
+            if(idx + 1 < SLIDESHOW_LENGTH) {
+                document.getElementById('slideshow').src = `static\\images\\img${idx+2}_100.jpg`;
+            } else {   
+                document.getElementById('pt1').hidden = true;
+                document.getElementById('pt2').hidden = false;
+            }
+            idx++;
+        }
+
+        function countDown() {
+            timer -= 1;
+            if(timer == 0) {
+                nextImage();
+                timer = 6;
+            }
+            if(idx+2 == SLIDESHOW_LENGTH) {
+                document.getElementById('timer').innerHTML = `img ${idx+1}/12 | experiment continues in ${timer}...`;    
+            } else {
+                document.getElementById('timer').innerHTML = `img ${idx+1}/12 | next image in ${timer}...`;
+            }
+            window.setTimeout(countDown, 1000);
+        }
+        
+        window.setTimeout(countDown, 1000);
+    </script>
 
 </head>
 
