@@ -11,10 +11,6 @@ html.experiment, html.experiment body {
     /* overflow: hidden; */
 }
 
-:root {
-    --aspect-ratio: calc(4/3);
-}
-
 #intro {
     max-width: 25rem;
     margin: auto;
@@ -42,6 +38,7 @@ body:not(.intro) #intro {
     left: 50%;
     transform: translate(-50%, -50%);
 
+    --aspect-ratio: calc(4/3);
     --height: calc(min(100vh, 100vw / var(--aspect-ratio)));
     width: calc(var(--height) * var(--aspect-ratio));
     height: var(--height);

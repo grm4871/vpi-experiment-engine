@@ -41,6 +41,8 @@ def submit_trial():
     form_data = request.form
     state['results'].append({
         'was_correct': form_data['was_correct'] == 'true',
+        'blink_index': int(form_data['blink_index']),
+        'blink_mag': float(form_data['blink_mag']),
         'correct_x': float(form_data['correct_x']),
         'correct_y': float(form_data['correct_y']),
         'picked_x': float(form_data['picked_x']),

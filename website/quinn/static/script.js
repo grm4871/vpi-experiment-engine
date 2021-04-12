@@ -50,7 +50,6 @@ function addCircles() {
         } while (isInvalid(x, y, radius));
         // console.log(count);
         
-        console.log(x, HALF_WIDTH, HALF_HEIGHT)
         div.style.left = `${(x/ASPECT_RATIO + 0.5)*100}%`;
         div.style.top = `${(y + 0.5)*100}%`;
         div.style.width = `${radius*2/ASPECT_RATIO*100}%`;
@@ -65,6 +64,8 @@ function addCircles() {
                 document.body.classList.add('submitting');
                 const form = document.forms['submit-form'];
                 form.was_correct.value = n == 0;
+                form.blink_index.value = blinkingCircles[0].index;
+                form.blink_mag.value = Math.abs(blinkingCircles[0].mag);
                 form.correct_x.value = circles[0].x;
                 form.correct_y.value = circles[0].y;
                 form.picked_x.value = x;
