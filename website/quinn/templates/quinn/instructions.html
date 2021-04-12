@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='simple/simple.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <link rel="stylesheet" href="{{url_for('.static', filename='style.css')}}">
     <title>Instructions &ndash; Color Vision Experiment</title>
 </head>
@@ -13,8 +14,18 @@
     </header>
 
     <main>
+        <noscript>
+            <div class="warning-banner">
+                Your browser seems to have JavaScript disabled &ndash; this experiment won't work unless you
+                <a href="https://enable-javascript.com/" rel="noopener noreferrer">enable it</a>.
+            </div>
+        </noscript>
+
         <h2>Instructions</h2>
 
+        <p>
+            Make this window as big as possible (full screen is best).
+        </p>
         <p>
             You'll complete {{NUM_TRIALS}} trial{{NUM_TRIALS|pluralize}}.
             During each trial, look at the cross in the center of the screen and 
@@ -38,8 +49,6 @@
                 <div class="circle blinking" data-index="0" data-magnitude="4"></div>
                 <p>Blinking</p>
             </div>
-        </div>
-        <div class="circle-demo">
             <div>
                 <div class="circle blinking" data-index="1" data-magnitude="30"></div>
                 <p>Blinking</p>
@@ -55,6 +64,10 @@
             Once instructed, you can look away from the cross and click the circle
             that you thought was blinking.
         </p>
+        <p>
+            If you can't tell which circle is blinking, just wait until instructed
+            and make your best guess.
+        </p>
         <form class="begin-form" method="POST" action="begin">
             <input type="submit" value="Start experiment!">
         </form>
@@ -62,5 +75,6 @@
 
     <script src="{{url_for('.static', filename='rgb-lab/color.js')}}"></script>
     <script src="{{url_for('.static', filename='script.js')}}"></script>
+    <script>requestFrame();</script>
 </body>
 </html>

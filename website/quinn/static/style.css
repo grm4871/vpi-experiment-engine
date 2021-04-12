@@ -11,20 +11,52 @@ html.experiment, html.experiment body {
     /* overflow: hidden; */
 }
 
-body.intro {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+:root {
+    --aspect-ratio: calc(4/3);
 }
+
 #intro {
+    max-width: 25rem;
+    margin: auto;
+    line-height: 1.4em;
+}
+#intro h2 {
     text-align: center;
+    margin-block-start: 0;
+    padding-block-start: 0.83em;
+}
+#intro li {
+    margin-bottom: 0.5em;
 }
 body:not(.intro) #intro {
     display: none;
 }
 
-body.intro #crosshair {
+#submit-form {
     display: none;
+}
+
+#experiment-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    --height: calc(min(100vh, 100vw / var(--aspect-ratio)));
+    width: calc(var(--height) * var(--aspect-ratio));
+    height: var(--height);
+}
+body.intro #experiment-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    border-top: 3px rgb(154, 82, 221) dotted;
+}
+
+body.intro #crosshair {
+    background-color: rgba(255, 255, 255, 0.75);
 }
 #crosshair {
     position: absolute;
@@ -37,6 +69,7 @@ body.intro #crosshair {
 }
 body:not(.stopped) #crosshair::before {
     content: '+';
+    font-size: 2em;
 }
 
 body.stopped #crosshair::before {
@@ -47,15 +80,21 @@ body.stopped #crosshair {
     padding: 0.25em;
     border-radius: 0.25em;
 }
+body.stopped.submitting #crosshair::before {
+    content: 'Please wait...';
+}
 
+body.intro .circle {
+    display: none;
+}
 .circle {
     position: absolute;
     margin: 0;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 6.5em;
-    height: 6.5em;
+    width: 5em;
+    height: 5em;
     border-radius: 50%;
     background-color: rgb(119, 119, 119);
     /* filter: blur(5px); */
@@ -74,6 +113,9 @@ body.stopped .circle:hover {
 }
 .circle-demo > div {
     margin: 0 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .circle-demo > div p {
     text-align: center;

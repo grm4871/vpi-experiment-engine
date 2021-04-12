@@ -1,8 +1,13 @@
 const MAG_MIN = 1, LN_MAG_MIN = Math.log(MAG_MIN);
 const MAG_MAX = 50, LN_MAG_MAX = Math.log(MAG_MAX);
-const HALF_WIDTH = window.innerWidth / 2;
-const HALF_HEIGHT = window.innerHeight / 2;
-const MIN_CIRCLE_GAP = 10;  // pixels
+const ASPECT_RATIO = 4/3;  // width/height of the experimentContainer
+const HALF_WIDTH = 0.5 * ASPECT_RATIO;
+const HALF_HEIGHT = 0.5;
+const MIN_CIRCLE_GAP = 0.0105;  // proportion of experimentContainer height
+const SPACE_DEBOUNCE_DELAY = 500;  // ms
+const AUTO_STOP_TIMEOUT = 10*1000;  // ms
+
+const isExperimentPage = document.documentElement.classList.contains('experiment');
 
 function isInvalid(x, y, radius) {
     // don't be too close to the edge of the screen
@@ -25,7 +30,8 @@ function isInvalid(x, y, radius) {
 }
 
 let circles = [];
-if (document.documentElement.classList.contains('experiment')) {
+const experimentContainer = document.getElementById('experiment-container');
+if (isExperimentPage) {
     addCircles();
 }
 function addCircles() {
@@ -35,30 +41,42 @@ function addCircles() {
         if (n == 0) div.classList.add('blinking');
         
         let count = 0;
+        let x, y, radius;
         do {
-            const x = (Math.random()*2 - 1) * HALF_WIDTH;
-            const y = (Math.random()*2 - 1) * HALF_HEIGHT;
-            const radius = 15 + 0.15*Math.hypot(x, y);
+            x = (Math.random()*2 - 1) * HALF_WIDTH;
+            y = (Math.random()*2 - 1) * HALF_HEIGHT;
+            radius = 0.016 + 0.15*Math.hypot(x, y);
             if (++count > 1000) break;
         } while (isInvalid(x, y, radius));
         // console.log(count);
         
-        div.style.left = `${x + HALF_WIDTH}px`;
-        div.style.top = `${y + HALF_HEIGHT}px`;
-        div.style.width = div.style.height = `${radius*2}px`;
+        console.log(x, HALF_WIDTH, HALF_HEIGHT)
+        div.style.left = `${(x/ASPECT_RATIO + 0.5)*100}%`;
+        div.style.top = `${(y + 0.5)*100}%`;
+        div.style.width = `${radius*2/ASPECT_RATIO*100}%`;
+        div.style.height = `${radius*2*100}%`;
         
         setCircleColor(div, [50, 0, 0]);
         
         div.addEventListener('click', event => {
-            if (document.body.classList.contains('stopped')) {
-                location.reload();
+            const isStopped = document.body.classList.contains('stopped');
+            const isSubmitting = document.body.classList.contains('submitting');
+            if (isStopped && !isSubmitting) {
+                document.body.classList.add('submitting');
+                const form = document.forms['submit-form'];
+                form.was_correct.value = n == 0;
+                form.correct_x.value = circles[0].x;
+                form.correct_y.value = circles[0].y;
+                form.picked_x.value = x;
+                form.picked_y.value = y;
+                form.submit();
             }
         });
         
         circles.push({
             div, x, y, radius,
         });
-        document.body.appendChild(div);
+        experimentContainer.appendChild(div);
     }
 }
 
@@ -100,22 +118,46 @@ function setCircleColor(div, lab) {
     div.style.backgroundColor = `rgb(${lab2rgb(lab).join(',')})`;
 }
 
+let afID;
 function doFrame(t) {
     for (let circle of blinkingCircles) {
         circle.update(t);
     }
     
+    requestFrame();
+}
+function requestFrame() {
     afID = requestAnimationFrame(doFrame);
 }
 
-let afID = requestAnimationFrame(doFrame);
-
-document.addEventListener('keyup', event => {
-    if (event.code === 'Space') {
-        document.body.classList.add('stopped');
-        cancelAnimationFrame(afID);
-        for (let circle of blinkingCircles) {
-            circle.setToGray();
-        }
+function start() {
+    document.body.classList.remove('intro');
+    requestFrame();
+    setTimeout(stop, AUTO_STOP_TIMEOUT);
+}
+function stop() {
+    document.body.classList.add('stopped');
+    cancelAnimationFrame(afID);
+    for (let circle of blinkingCircles) {
+        circle.setToGray();
     }
-});
+}
+
+function onSpacePressed() {
+    if (document.body.classList.contains('intro')) {
+        start();
+    } else {
+        stop();
+    }
+}
+
+if (isExperimentPage) {
+    let lastSpaceSpess = Date.now();
+    document.addEventListener('keyup', event => {
+        const now = Date.now();
+        if (event.code === 'Space' && now > lastSpaceSpess + SPACE_DEBOUNCE_DELAY) {
+            lastSpaceSpess = now;
+            onSpacePressed();
+        }
+    });
+}
