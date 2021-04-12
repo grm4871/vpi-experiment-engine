@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='simple/simple.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <title>Vision Experiments</title>
 </head>
 <body>
@@ -12,18 +13,29 @@
     </header>
 
     <main>
+        {%- for message in get_flashed_messages() %}
+            <div class="success-banner">{{message}}</div>
+        {%- endfor %}
+
         <p>Help us collect data for our vision experiments!</p>
 
         <ul>
-            {%- for name in ['Quinn', 'Greg', 'Lori'] %}
-                <li><a href="{{url_for(name.lower()+'.main')}}">
-                    {{name}}'s experiment
-                    {%- if session[name.lower()+'_done'] %}
-                        (completed &ndash; thanks!)
-                    {%- endif -%}
-                </a></li>
+            {%- for name in not_completed_names %}
+                <li><a href="{{url_for(name.lower()+'.main')}}">{{name}}'s experiment</a></li>
             {%- endfor %}
         </ul>
+
+        {%- if completed_names %}
+            <div class="completed-experiments">
+                <p>Already completed:</p>
+
+                <ul>
+                    {%- for name in completed_names %}
+                        <li><a href="{{url_for(name.lower()+'.main')}}">{{name}}'s experiment</a></li>
+                    {%- endfor %}
+                </ul>
+            </div>
+        {%- endif %}
     </main>
 </body>
 </html>
