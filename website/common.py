@@ -1,4 +1,4 @@
-from flask import render_template, request, session, redirect, url_for
+from flask import flash, render_template, request, session, redirect, url_for
 from pathlib import Path
 import json
 
@@ -122,4 +122,6 @@ def finish_experiment(results):
     del session[request.blueprint + '_state']
     session[request.blueprint + '_done'] = True
 
+    # set the banner message and redirect to the home page
+    flash(f"Thanks for completing {request.blueprint.title()}'s experiment!")
     return redirect(url_for('main.home'))

@@ -9,11 +9,28 @@
 <body class="intro">
     <div id="intro">
         <h2>Trial {{trial_num}} / {{NUM_TRIALS}}</h2>
-        <p>Rest your eyes for a moment, and press the <strong>space bar</strong>
-        when you're ready.</p>
+        <p>Rest your eyes for a moment if you feel like it.</p>
+        <p>When you're ready:</p>
+        <ol>
+            <li>Position your head so that the distance from your eyes to the screen is equal to the width of the dotted line.</li>
+            <li>Look at the cross in the middle.</li>
+            <li>Press the <strong>space bar</strong>.</li>
+        </ol>
     </div>
 
-    <div id="crosshair"></div>
+    <div id="experiment-container">
+        <div id="crosshair"></div>
+    </div>
+
+    <form id="submit-form" method="POST" action="submit-trial">
+        <input type="hidden" name="was_correct" value="">
+        <input type="hidden" name="blink_index" value="">
+        <input type="hidden" name="blink_mag" value="">
+        <input type="hidden" name="correct_x" value="">
+        <input type="hidden" name="correct_y" value="">
+        <input type="hidden" name="picked_x" value="">
+        <input type="hidden" name="picked_y" value="">
+    </form>
 
     <script src="{{url_for('.static', filename='rgb-lab/color.js')}}"></script>
     <script src="{{url_for('.static', filename='script.js')}}"></script>
