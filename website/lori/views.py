@@ -6,8 +6,9 @@ views = Blueprint('lori', __name__,
                   url_prefix='/lori',
                   static_folder='static', template_folder='templates')
 
+NUM_TRIALS = 2
 
-create_main_route(views, lambda: dict(trials_done=0))
+create_main_route(views, lambda: dict(intro_done=False, trials_done=0))
 
 
 @views.route('/experiment')
@@ -18,9 +19,13 @@ def experiment():
         return redirect(url_for('.main'))
 
     state = get_experiment_state()
-    if state['trials_done'] == 3:
-        return finish_experiment([1,2,3])
-    else:
+    if not state['intro_done']:
+        result = render_template('lori/instructions.html', NUM_TRIALS=NUM_TRIALS)
+    elif state['trials_done'] < NUM_TRIALS:
         state['trials_done'] += 1
-        set_experiment_state(state)
-        return render_template('lori/experiment.html')
+        
+        result = render_template('lori/experiment.html')
+    else:
+        result = finish_experiment([1,2,3])
+    set_experiment_state(state)
+    return result

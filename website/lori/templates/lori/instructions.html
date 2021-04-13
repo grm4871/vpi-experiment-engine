@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='simple/simple.min.css')}}">-
+    <link rel="stylesheet" href="{{url_for('.static', filename='style.css')}}">
+    <title>Instructions &ndash; Color Vision Experiment</title>
+</head>
+<body>
+    <header>
+        <h1>Lori's Experiment</h1>
+    </header>
+
+    <main>
+        <h2>Instructions</h2>
+
+        <p>
+            You'll complete {{NUM_TRIALS}} trial{{NUM_TRIALS|pluralize}}.
+            During this first trial, you will be presented 10 human faces for 5 seconds each. Try your best in memorizing them. 
+            After the 10 human faces, you will be presented with 10 more faces and will be asked to select the faces that appeared in the initial 10 faces.<br>     
+            <div class='image'>
+                Example face:<br>
+                <img id='ex' src="static/images/ex/1.jpeg" width=40%></img>     
+            </div>
+        </p>
+        <form class="begin-form" method="POST" action="begin">
+            <input type="submit" value="Start experiment!">
+        </form>
+    </main>
+</body>
+</html>
