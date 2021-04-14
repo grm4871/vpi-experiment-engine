@@ -6,7 +6,17 @@ html, body {
     overflow: hidden;
 }
 
-.begin-form {
+.begin-form, #cont_button, #begin_button {
     display: flex;
     justify-content: center;
+}
+
+#timer {
+    text-align: center;
+}
+
+#ex, #slideshow {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
