@@ -23,9 +23,16 @@ def experiment():
         result = render_template('lori/instructions.html', NUM_TRIALS=NUM_TRIALS)
     elif state['trials_done'] < NUM_TRIALS:
         state['trials_done'] += 1
-        
         result = render_template('lori/experiment.html')
     else:
         result = finish_experiment([1,2,3])
     set_experiment_state(state)
     return result
+
+@views.route('/begin', methods=['POST'])
+def begin():
+    # mark the intro as done and redirect back to the experiment
+    state = get_experiment_state()
+    state['intro_done'] = True
+    set_experiment_state(state)
+    return redirect(url_for('.experiment'))
