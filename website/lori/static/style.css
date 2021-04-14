@@ -3,7 +3,7 @@ html, body {
     height: 100%;
     position: relative;
     padding: 0;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .begin-form, #cont_button, #begin_button {
