@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='simple/simple.min.css')}}">-
     <link rel="stylesheet" href="{{url_for('.static', filename='style.css')}}">
     <title>Facial Recognition Experiment</title>
     <div id='experiment'>
@@ -12,12 +13,23 @@
         <img id='slideshow' src='' width=60%></img>
     </div>
 
-    <div id='instructions' hidden>
+    <div id='test' hidden>
         <h>Select the faces that appeared</h>
         <form method="POST">
             <!-- Add selectable images here-->
         </form>
-        <input type="submit" value="Continue">
+        <input type="button" value="Continue" onclick="displayInstructions()">
+    </div>
+
+    <div id="instructions" hidden>
+        <h3>
+            Trial 2
+        </h3>
+        <b>
+            During this trial, you will be presented with 10 new faces. After the 10 faces, you will be shown 10 faces with a mask. </br>
+            Select 5 faces that appeared. </br>
+            <input id='cont_button' type="button" value="Continue" onclick="beginExperiment()">
+        </b>
     </div>
 </head>
 
@@ -29,8 +41,19 @@
     var timer = 6;
     var state = 0;
     var img = 1;
+    var counting = true;
 
-    countDown()
+    countDown(counting)
+
+    function beginExperiment() {
+        document.getElementById('instructions').hidden = true;
+        document.getElementById('experiment').hidden = false;
+        counting = true;
+        img = 1;
+        state = 0;
+        timer = 6;
+        countDown(counting);
+    }
 
     function countDown() {
         timer -= 1;
@@ -40,23 +63,38 @@
                 timer = 5;
                 img++;
         }
-        if(state == 2) {
-            document.getElementById('instructions').hidden = false;
+        if(state == 3) {
             document.getElementById('experiment').hidden = true;
+            document.getElementById('test').hidden = false;
+            document.getElementById('slideshow').src = ``;
+            trial++;
+            counting = false;
         }
+        if (state == 3 && trial == 2) {
+            document.getElementById('cont_button').onclick = 'finish()';
+        }
+
         else if (state == 0) {
             document.getElementById('timer').innerHTML = `Your experiment will begin in ${timer}.`
         }
         else if(state >= 1) {     
             document.getElementById('timer').innerHTML = `Time left: ${timer}.`
         }
-        
-        window.setTimeout(countDown, 1000);
+        if (counting) {
+            window.setTimeout(countDown, 1000);
+        }
+       
     }
 
     function displayImage(img) {
         document.getElementById('slideshow').src = `static\\images\\_\\${img}_whitem.jpeg`;
     }
+
+    function displayInstructions() {
+        document.getElementById('instructions').hidden = false;
+        document.getElementById('test').hidden = true;
+    }
+
 
 </script>
 </html>
