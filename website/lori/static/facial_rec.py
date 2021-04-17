@@ -29,22 +29,24 @@ def zip_lists(list1, list2):
     @param zip_list list of unmasked-masked pairs
     @return pointer keeps track of index in zip_list
 """
-def create_trial1(zip_list):
+def create_trial(zip_list):
     zip_pointer = PRES_SIZE
 
-    trial1_1 = zip_list[:zip_pointer]
-    random.shuffle(trial1_1)
+    trial1 = zip_list[:zip_pointer]
+    random.shuffle(trial1)
 
-    trial1_2 = trial1_1[:int(PRES_SIZE / 2)] + zip_list[zip_pointer:int(zip_pointer + PRES_SIZE / 2)]
-    random.shuffle(trial1_2)
+    trial2 = trial1[:int(PRES_SIZE / 2)] + zip_list[zip_pointer:int(zip_pointer + PRES_SIZE / 2)]
+    random.shuffle(trial2)
     
     zip_pointer += int(PRES_SIZE / 2)
 
-    return trial1_1, trial1_2, zip_pointer
+    return trial1, trial2, zip_pointer
 
-def create_trial2(zip_list):
-    pass
+"""
+    Extracts jpg images from masked file and jpeg images from unmasked file
 
+    @return unmasked-masked image pairs
+"""
 def get_images():
     unmasked = []
     masked = []
@@ -53,14 +55,16 @@ def get_images():
     for image in glob.glob("website/lori/static/images/_/*.jpeg"):
         unmasked.append(Image.open(image))
     zip = zip_lists(unmasked, masked)
+    return zip 
+    #return render_template("website/lori/templates/experiment.hmtl", unmasked=unmasked, masked=masked)
 
-    trial1_1, trial1_2, zip_pointer = create_trial1(zip)
-    print(zip_pointer)
-    
-    #trial2_1, trial2_2 = create_trial2(zip[zip_pointer:])
-    
-
-
+"""
+    Creates both Trial 1 and 2
+"""
+def create_experiment():
+    zip = get_images()
+    trial1_1, trial1_2, zip_pointer = create_trial(zip)
+    trial2_1, trial2_2, zip_pointer = create_trial(zip[zip_pointer:])
     #return render_template("website/lori/templates/experiment.hmtl", unmasked=unmasked, masked=masked)
 
 get_images()
