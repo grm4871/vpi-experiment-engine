@@ -1,4 +1,4 @@
-from flask import render_template
+#from flask import render_template
 from PIL import Image
 import glob
 import random
@@ -15,20 +15,30 @@ PRES_SIZE = 10
 def zip_lists(list1, list2):
     zip_list = []
     
-    for i in range(len(list1) - 1):
+    for i in range(len(list1)):
         
         zip = (list1[i], list2[i])
         zip_list.append(zip)
     return zip_list
 
+"""
+    Creates Trial 1 
+    Part 1 includes 10 unique pairs of images.
+    Part 2 includes 5 unique pairs of images with 5 images from Part 1
+
+    @param zip_list list of unmasked-masked pairs
+    @return pointer keeps track of index in zip_list
+"""
 def create_trial1(zip_list):
-    zip_pointer = PRES_SIZE + 1
-    trial1_1 = zip[:zip_pointer]
+    zip_pointer = PRES_SIZE
+
+    trial1_1 = zip_list[:zip_pointer]
     random.shuffle(trial1_1)
 
-    trial1_2 = trial1_1[:6] + zip[zip_pointer:zip_pointer+6]
+    trial1_2 = trial1_1[:int(PRES_SIZE / 2)] + zip_list[zip_pointer:int(zip_pointer + PRES_SIZE / 2)]
     random.shuffle(trial1_2)
-    zip_pointer += 6
+    
+    zip_pointer += int(PRES_SIZE / 2)
 
     return trial1_1, trial1_2, zip_pointer
 
@@ -42,11 +52,11 @@ def get_images():
         masked.append(Image.open(image))
     for image in glob.glob("website/lori/static/images/_/*.jpeg"):
         unmasked.append(Image.open(image))
-    print(len(masked))
     zip = zip_lists(unmasked, masked)
+
     trial1_1, trial1_2, zip_pointer = create_trial1(zip)
+    print(zip_pointer)
     
-    print(len(trial1_1))
     #trial2_1, trial2_2 = create_trial2(zip[zip_pointer:])
     
 
