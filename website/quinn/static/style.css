@@ -1,5 +1,11 @@
+:root {
+    --dotted-line-color: rgb(138, 51, 219);
+}
+
 body {
     font-family: sans-serif;
+    background-color: white;
+    color: black;
 }
 
 html.experiment, html.experiment body {
@@ -49,7 +55,10 @@ body.intro #experiment-container::before {
     top: 50%;
     left: 0;
     right: 0;
-    border-top: 3px rgb(154, 82, 221) dotted;
+    border-top: 3px var(--dotted-line-color) dotted;
+}
+.dotted-color {
+    color: var(--dotted-line-color);
 }
 
 body.intro #crosshair {
@@ -69,8 +78,12 @@ body:not(.stopped) #crosshair::before {
     font-size: 2em;
 }
 
-body.stopped #crosshair::before {
-    content: 'click the circle that blinked';
+#crosshair .stopped-message {
+    display: none;
+    text-align: center;
+}
+body.stopped:not(.submitting) #crosshair .stopped-message {
+    display: inline-block;
 }
 body.stopped #crosshair {
     background-color: rgba(255, 255, 255, 0.75);
