@@ -2,24 +2,10 @@
 from PIL import Image
 import glob
 import random
+import os
 
+image = os.path.basename("website/lori/static/images/m/*.jpg")
 PRES_SIZE = 10
-
-"""
-    Combines each element of list1 and list2 into a tuple and 
-    contains it all in a list
-
-    @precondition list1 and list2 are equal length
-    @return [(list1[0], list2[0]),(list1[1], list2[1])...]
-"""
-def zip_lists(list1, list2):
-    zip_list = []
-    
-    for i in range(len(list1)):
-        
-        zip = (list1[i], list2[i])
-        zip_list.append(zip)
-    return zip_list
 
 """
     Creates Trial 1 
@@ -50,11 +36,13 @@ def create_trial(zip_list):
 def get_images():
     unmasked = []
     masked = []
-    for image in glob.glob("website/lori/static/images/m/*.jpg"):
-        masked.append(Image.open(image))
-    for image in glob.glob("website/lori/static/images/_/*.jpeg"):
-        unmasked.append(Image.open(image))
-    zip = zip_lists(unmasked, masked)
+    for path in glob.glob("website/lori/static/images/m/*.jpg"):
+        filename = os.path.basename(path)
+        masked.append(filename)
+    for path in glob.glob("website/lori/static/images/_/*.jpeg"):
+        filename = os.path.basename(path)
+        unmasked.append(filename)
+    zip_lists = list(zip(unmasked, masked))
     return zip 
     #return render_template("website/lori/templates/experiment.hmtl", unmasked=unmasked, masked=masked)
 
@@ -65,6 +53,4 @@ def create_experiment():
     zip = get_images()
     trial1_1, trial1_2, zip_pointer = create_trial(zip)
     trial2_1, trial2_2, zip_pointer = create_trial(zip[zip_pointer:])
-    #return render_template("website/lori/templates/experiment.hmtl", unmasked=unmasked, masked=masked)
-
-get_images()
+    return trial1_1, trial1_2, trial2_1, trial2_2
