@@ -60,7 +60,6 @@ function countDown() {
 }
 
 function displayImage(img) {
-    console.log(img)
     document.getElementById('slideshow').src = `static/images/_/${TRIAL1[img][0]}`;
 }
 

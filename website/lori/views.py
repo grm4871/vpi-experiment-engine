@@ -23,7 +23,7 @@ def experiment():
     if not state['intro_done']:
         result = render_template('lori/instructions.html', NUM_TRIALS=NUM_TRIALS)
     elif state['trials_done'] == 0:
-        state['trials_done'] += 1
+        print(state['trials_done'])
         result = render_template('lori/experiment.html', TRIAL1=state['trial_info'][0], TRIAL2=state['trial_info'][1], SET_SIZE=10, TRIAL=0)
     elif state['trials_done'] == 1:
         state['trials_done'] += 1
