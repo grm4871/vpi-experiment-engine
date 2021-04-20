@@ -36,21 +36,21 @@ def create_trial(zip_list):
 def get_images():
     unmasked = []
     masked = []
-    for path in glob.glob("website/lori/static/images/m/*.jpg"):
+    for path in sorted(glob.glob("website/lori/static/images/m/*")):
         filename = os.path.basename(path)
         masked.append(filename)
-    for path in glob.glob("website/lori/static/images/_/*.jpeg"):
+    for path in sorted(glob.glob("website/lori/static/images/_/*.jpeg")):
         filename = os.path.basename(path)
         unmasked.append(filename)
     zip_lists = list(zip(unmasked, masked))
-    return zip 
+    return zip_lists
     #return render_template("website/lori/templates/experiment.hmtl", unmasked=unmasked, masked=masked)
 
 """
     Creates both Trial 1 and 2
 """
 def create_experiment():
-    zip = get_images()
-    trial1_1, trial1_2, zip_pointer = create_trial(zip)
-    trial2_1, trial2_2, zip_pointer = create_trial(zip[zip_pointer:])
+    zip_lists = get_images()
+    trial1_1, trial1_2, zip_pointer = create_trial(zip_lists)
+    trial2_1, trial2_2, zip_pointer = create_trial(zip_lists[zip_pointer:])
     return trial1_1, trial1_2, trial2_1, trial2_2

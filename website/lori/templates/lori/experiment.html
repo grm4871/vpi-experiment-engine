@@ -18,8 +18,21 @@
 
     <div id='test' hidden>
         <h1>Select the faces that appeared</h1>
-        <form method="POST">
-            <!-- Add selectable images here-->
+        <form method="POST">    
+            <div>
+                <ul>
+                    {% for i in range(5) %} 
+                        <li><img id={{i}} src='static\images\_\{{TRIAL1_2[i][0]}}' width=30% height=30%></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    {% for i in range(5, SET_SIZE) %} 
+                        <li><img id={{i}} src='static\images\_\{{TRIAL1_2[i][0]}}' width=30% height=30%></li>
+                    {% endfor %}
+                </ul>
+            </div>
             <input id='cont_button' type="button" value="Continue" onclick="displayInstructions()">
         </form>
        

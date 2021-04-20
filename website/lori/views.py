@@ -25,7 +25,7 @@ def experiment():
     elif state['trials_done'] < NUM_TRIALS:
         state['trials_done'] += 1
         result = render_template('lori/experiment.html', TRIAL1_1=state['trial_info'][0], TRIAL1_2=state['trial_info'][1],
-        TRIAL2_1=state['trial_info'][2], TRIAL2_2=state['trial_info'][3])
+        TRIAL2_1=state['trial_info'][2], TRIAL2_2=state['trial_info'][3], SET_SIZE=10)
     else:
         result = finish_experiment([1,2,3])
     set_experiment_state(state)

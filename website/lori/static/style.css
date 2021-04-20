@@ -20,3 +20,12 @@ html, body {
     margin-left: auto;
     margin-right: auto;
 }
+
+ul {
+    white-space: nowrap;
+}
+
+ul, li {
+    list-style: none;
+    display: inline;
+}
