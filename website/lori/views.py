@@ -22,10 +22,12 @@ def experiment():
     state = get_experiment_state()
     if not state['intro_done']:
         result = render_template('lori/instructions.html', NUM_TRIALS=NUM_TRIALS)
-    elif state['trials_done'] < NUM_TRIALS:
+    elif state['trials_done'] == 0:
         state['trials_done'] += 1
-        result = render_template('lori/experiment.html', TRIAL1_1=state['trial_info'][0], TRIAL1_2=state['trial_info'][1],
-        TRIAL2_1=state['trial_info'][2], TRIAL2_2=state['trial_info'][3], SET_SIZE=10)
+        result = render_template('lori/experiment.html', TRIAL1=state['trial_info'][0], TRIAL2=state['trial_info'][1], SET_SIZE=10, TRIAL=0)
+    elif state['trials_done'] == 1:
+        state['trials_done'] += 1
+        result = render_template('lori/experiment.html', TRIAL1=state['trial_info'][2], TRIAL2=state['trial_info'][3], SET_SIZE=10, TRIAL=1)
     else:
         result = finish_experiment([1,2,3])
     set_experiment_state(state)

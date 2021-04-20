@@ -1,11 +1,11 @@
 const TIMER = 3;
-const MAX_STATES = 3;
+const MAX_STATES = 10;
 const NUM_TRIALS = 2;
 
 var trial = 0;
 var timer = TIMER;
 var state = 0;
-var img = 1;
+var img = 0;
 var counting = true;
 
 countDown(counting)
@@ -14,7 +14,7 @@ function beginExperiment() {
     document.getElementById('instructions').hidden = true;
     document.getElementById('experiment').hidden = false;
     counting = true;
-    img = 1;
+    img = 0;
     state = 0;
     timer = TIMER;
     countDown(counting);
@@ -60,7 +60,8 @@ function countDown() {
 }
 
 function displayImage(img) {
-    document.getElementById('slideshow').src = `static\\images\\_\\${img}_whitem.jpeg`;
+    console.log(img)
+    document.getElementById('slideshow').src = `static/images/_/${TRIAL1[img][0]}`;
 }
 
 function displayInstructions() {
