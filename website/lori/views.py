@@ -28,7 +28,7 @@ def experiment():
     elif state['trials_done'] == 1:
         result = render_template('lori/experiment.html', TRIAL1=state['trial_info'][2], TRIAL2=state['trial_info'][3], CORRECT=state['correct'][1], SET_SIZE=10, TRIAL=1)
     else:
-        result = finish_experiment([1,2,3])
+        result = finish_experiment(state['results'])
     set_experiment_state(state)
     return result
 
@@ -47,13 +47,15 @@ def submit_trial():
     form_data = request.form
     if (state['trials_done'] == 0):
         state['results'].append({
-        'trial1_right': 1,
-        'trial1_wrong': 2
+        'trial1_right': int(form_data['correct']),
+        'trial1_wrong': int(form_data['incorrect']),
+        'trial1_rate': float(form_data['rate'])
         })
     elif (state['trials_done'] == 1):
         state['results'].append({
-        'trial2_right': 3,
-        'trial2_wrong': 4
+        'trial2_right': int(form_data['correct']),
+        'trial2_wrong': int(form_data['incorrect']),
+        'trial1_rate': float(form_data['rate'])
         })
     state['trials_done'] += 1
     set_experiment_state(state)

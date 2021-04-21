@@ -1,5 +1,5 @@
 const TIMER = 2;
-const MAX_STATES = 10;
+const MAX_STATES = 5;
 const NUM_TRIALS = 2;
 
 var trial = 0;
@@ -44,6 +44,7 @@ function countDown() {
         counting = false;
         document.getElementById('instructions').hidden = true;
         document.getElementById('test').hidden = false;
+        document.getElementsByClassName('img').src = `static/images/m/{{TRIAL2[i][TRIAL]}`;
         document.getElementById('cont_button').onclick = 'finish()';
         document.getElementById('cont_button').value = "Submit";
     }
@@ -69,14 +70,17 @@ function displayInstructions() {
 }
 
 function submitForm(images) {
-    const form = document.forms['cont_button'];
-    var correct = 0;
-    console.log(CORRECT[0]);
-    console.log(images);
+    const form = document.forms['submit_trial'];
+    var num_correct = 0;    
     for (var i = 0; i < images.length; i++) {
-        correct += (CORRECT[i].filter(x => images.includes(x))).length;
+        num_correct += (CORRECT[i].filter(x => images.includes(x))).length;
     }
-    console.log(correct);
+    var num_incorrect = 5 - num_correct;
+    console.log(form);
+    form.correct.value = num_correct;
+    form.incorrect.value = num_incorrect;
+    form.rate.value = num_incorrect / num_correct;
+    form.submit();
 }
 
 function checkBoxes() {
@@ -88,7 +92,7 @@ function checkBoxes() {
             count++;
         }
     }
-    if (count == 5) {
+    if (count >= 5) {
         document.getElementById('warning').hidden = true;
         for (var i = 0; i < inputs.length; i++) {
             if (inputs[i].type == "checkbox" && inputs[i].checked == true) {
