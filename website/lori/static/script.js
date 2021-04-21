@@ -68,8 +68,20 @@ function displayInstructions() {
     document.getElementById('test').hidden = true;
 }
 
+function submitForm(images) {
+    const form = document.forms['cont_button'];
+    var correct = 0;
+    console.log(CORRECT[0]);
+    console.log(images);
+    for (var i = 0; i < images.length; i++) {
+        correct += (CORRECT[i].filter(x => images.includes(x))).length;
+    }
+    console.log(correct);
+}
+
 function checkBoxes() {
     var inputs = document.getElementsByTagName("input");
+    var selectedImages = [];
     var count = 0;
     for (var i = 0; i < inputs.length; i++) {
         if (inputs[i].type == "checkbox" && inputs[i].checked == true) {
@@ -78,6 +90,12 @@ function checkBoxes() {
     }
     if (count == 5) {
         document.getElementById('warning').hidden = true;
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].type == "checkbox" && inputs[i].checked == true) {
+                selectedImages.push(inputs[i].id);
+            }
+        }
+        submitForm(selectedImages);
         displayInstructions();
     }
     else {

@@ -25,8 +25,8 @@
                     <ul>
                         {% for i in range(5) %} 
                             <label>
-                                <li><img class='img' src='static\images\_\{{TRIAL2[i][TRIAL]}}' width=30% height=30%></li>
-                                <input type="checkbox" id="box{{i}}">
+                                <li><img id='img' src='static\images\_\{{TRIAL2[i][TRIAL]}}' width=30% height=30%></li>
+                                <input type="checkbox" id='{{TRIAL2[i][TRIAL]}}'>
                             </label>
                         
                         {% endfor %}
@@ -36,14 +36,14 @@
                     <ul>           
                         {% for i in range(5, SET_SIZE) %} 
                             <label>
-                                <li><img class='img' src='static\images\_\{{TRIAL2[i][TRIAL]}}' width=30% height=30%></li>
-                                <input type="checkbox" id="box{{i}}">
+                                <li><img id='img' src='static\images\_\{{TRIAL2[i][TRIAL]}}' width=30% height=30%></li>
+                                <input type="checkbox" id='{{TRIAL2[i][TRIAL]}}'>
                             </label>
                         {% endfor %}
                     </ul>
                 </div>
             </div>
-            <input id='cont_button' type="button" value="Continue" onclick="checkBoxes()"> <!-- displayInstructions-->
+            <input id='cont_button' type="button" value="Continue" onclick="checkBoxes()">
         </form>
        
     </div>
@@ -65,6 +65,8 @@
 
     <script>
         const TRIAL1 = {{TRIAL1 | tojson}};
+        const CORRECT = {{CORRECT | tojson}};
+        const TRIAL = {{TRIAL}};
     </script>
     <script src="{{url_for('.static', filename='script.js')}}"></script>
 </body>

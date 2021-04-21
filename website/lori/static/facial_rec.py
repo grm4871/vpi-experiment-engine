@@ -20,14 +20,16 @@ def create_trial(zip_list):
     trial1 = zip_list[:zip_pointer]
     random.shuffle(trial1)
     random.shuffle(trial1)
-    
-    trial2 = trial1[:int(PRES_SIZE / 2)] + zip_list[zip_pointer:int(zip_pointer + PRES_SIZE / 2)]
+
+    correct = trial1[:int(PRES_SIZE / 2)]
+
+    trial2 = correct + zip_list[zip_pointer:int(zip_pointer + PRES_SIZE / 2)]
     random.shuffle(trial2)
     random.shuffle(trial2)
     
     zip_pointer += int(PRES_SIZE / 2)
 
-    return trial1, trial2, zip_pointer
+    return trial1, trial2, correct, zip_pointer
 
 """
     Extracts jpg images from masked file and jpeg images from unmasked file
@@ -52,6 +54,6 @@ def get_images():
 """
 def create_experiment():
     zip_lists = get_images()
-    trial1_1, trial1_2, zip_pointer = create_trial(zip_lists)
-    trial2_1, trial2_2, zip_pointer = create_trial(zip_lists[zip_pointer:])
-    return trial1_1, trial1_2, trial2_1, trial2_2
+    trial1_1, trial1_2, correct1, zip_pointer = create_trial(zip_lists)
+    trial2_1, trial2_2, correct2, zip_pointer = create_trial(zip_lists[zip_pointer:])
+    return trial1_1, trial1_2, correct1, trial2_1, trial2_2, correct2

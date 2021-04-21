@@ -9,8 +9,8 @@ views = Blueprint('lori', __name__,
 NUM_TRIALS = 2
 
 def init_state():
-    trial1_1, trial1_2, trial2_1, trial2_2 = create_experiment()
-    return dict(intro_done=False, trials_done=0, results=[], trial_info=[trial1_1, trial1_2, trial2_1, trial2_2])
+    trial1_1, trial1_2, correct1, trial2_1, trial2_2, correct2 = create_experiment()
+    return dict(intro_done=False, trials_done=0, results=[], trial_info=[trial1_1, trial1_2, trial2_1, trial2_2], correct=[correct1, correct2])
 
 create_main_route(views, init_state)
 
@@ -24,9 +24,9 @@ def experiment():
     if not state['intro_done']:
         result = render_template('lori/instructions.html', NUM_TRIALS=NUM_TRIALS)
     elif state['trials_done'] == 0:
-        result = render_template('lori/experiment.html', TRIAL1=state['trial_info'][0], TRIAL2=state['trial_info'][1], SET_SIZE=10, TRIAL=0)
+        result = render_template('lori/experiment.html', TRIAL1=state['trial_info'][0], TRIAL2=state['trial_info'][1], CORRECT=state['correct'][0], SET_SIZE=10, TRIAL=0)
     elif state['trials_done'] == 1:
-        result = render_template('lori/experiment.html', TRIAL1=state['trial_info'][2], TRIAL2=state['trial_info'][3], SET_SIZE=10, TRIAL=1)
+        result = render_template('lori/experiment.html', TRIAL1=state['trial_info'][2], TRIAL2=state['trial_info'][3], CORRECT=state['correct'][1], SET_SIZE=10, TRIAL=1)
     else:
         result = finish_experiment([1,2,3])
     set_experiment_state(state)
@@ -58,3 +58,5 @@ def submit_trial():
     state['trials_done'] += 1
     set_experiment_state(state)
     return redirect(url_for('.experiment'))
+
+    
