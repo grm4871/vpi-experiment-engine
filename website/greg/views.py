@@ -23,11 +23,14 @@ def experiment():
     # if there is form data
     if('button-0' in request.form.to_dict().keys()):
         experiment_data['results'] = []
+        print(request.form.to_dict())
         for i in range(NUM_SAT_EXPERIMENTS):
             experiment_data['results'].append(request.form.to_dict()['button-' + str(i)])
         return finish_experiment(experiment_data)
 
     # do experiment RNG
+    experiment_data['A'] = []
+    experiment_data['B'] = []
     for i in range(NUM_SAT_EXPERIMENTS):
         original = 100
         altered = rand.choice([50,75,125,150])  
@@ -36,5 +39,6 @@ def experiment():
         if rand.getrandbits(1):
             # swap
             experiment_data['A'][i], experiment_data['B'][i] = experiment_data['B'][i], experiment_data['A'][i]
+        print(experiment_data)
     set_experiment_state(experiment_data)
     return render_template("greg/satexp.html", experiment_data=experiment_data)
