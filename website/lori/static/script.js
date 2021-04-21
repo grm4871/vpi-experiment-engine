@@ -1,4 +1,4 @@
-const TIMER = 3;
+const TIMER = 2;
 const MAX_STATES = 10;
 const NUM_TRIALS = 2;
 
@@ -66,4 +66,21 @@ function displayImage(img) {
 function displayInstructions() {
     document.getElementById('instructions').hidden = false;
     document.getElementById('test').hidden = true;
+}
+
+function checkBoxes() {
+    var inputs = document.getElementsByTagName("input");
+    var count = 0;
+    for (var i = 0; i < inputs.length; i++) {
+        if (inputs[i].type == "checkbox" && inputs[i].checked == true) {
+            count++;
+        }
+    }
+    if (count == 5) {
+        document.getElementById('warning').hidden = true;
+        displayInstructions();
+    }
+    else {
+        document.getElementById('warning').hidden = false;
+    }
 }

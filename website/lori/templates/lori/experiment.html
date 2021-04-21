@@ -17,14 +17,15 @@
     </div>
 
     <div id='test' hidden>
-        <h1>Select the faces that appeared</h1>
+        <b>There are 5 faces that was shown in the slideshow. Pick the 5 faces that were shown.</b>
+        <b id='warning' hidden>Please select 5 faces</b>
         <form method="POST">   
             <div id="images"> 
                 <div>
                     <ul>
                         {% for i in range(5) %} 
                             <label>
-                                <li><img id={{i}} src='static\images\_\{{TRIAL2[i][TRIAL]}}' width=30% height=30%></li>
+                                <li><img class='img' src='static\images\_\{{TRIAL2[i][TRIAL]}}' width=30% height=30%></li>
                                 <input type="checkbox" id="box{{i}}">
                             </label>
                         
@@ -32,17 +33,17 @@
                     </ul>
                 </div>
                 <div>
-                    <ul>
-                        <label>
-                            {% for i in range(5, SET_SIZE) %} 
-                                <li><img id={{i}} src='static\images\_\{{TRIAL2[i][TRIAL]}}' width=30% height=30%></li>
+                    <ul>           
+                        {% for i in range(5, SET_SIZE) %} 
+                            <label>
+                                <li><img class='img' src='static\images\_\{{TRIAL2[i][TRIAL]}}' width=30% height=30%></li>
                                 <input type="checkbox" id="box{{i}}">
-                            {% endfor %}
-                        </label>
+                            </label>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
-            <input id='cont_button' type="button" value="Continue" onclick="displayInstructions()">
+            <input id='cont_button' type="button" value="Continue" onclick="checkBoxes()"> <!-- displayInstructions-->
         </form>
        
     </div>

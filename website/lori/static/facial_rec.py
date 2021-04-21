@@ -4,7 +4,6 @@ import glob
 import random
 import os
 
-image = os.path.basename("website/lori/static/images/m/*.jpg")
 PRES_SIZE = 10
 
 """
@@ -20,8 +19,10 @@ def create_trial(zip_list):
 
     trial1 = zip_list[:zip_pointer]
     random.shuffle(trial1)
-
+    random.shuffle(trial1)
+    
     trial2 = trial1[:int(PRES_SIZE / 2)] + zip_list[zip_pointer:int(zip_pointer + PRES_SIZE / 2)]
+    random.shuffle(trial2)
     random.shuffle(trial2)
     
     zip_pointer += int(PRES_SIZE / 2)
