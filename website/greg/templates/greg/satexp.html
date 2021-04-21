@@ -25,34 +25,21 @@
     
     
     <div id='pt2' hidden>
-        <h2>For the following images, one in each pair is modified. Please select the one that you think you saw in the slideshow.
-             That is, can you tell which is the original? If you can't, make your best guess.</h2>
-
-             <div>
-                <label>
-                    <img id='{{i}}a' src='static\images\img{{i+1}}_{{experiment_data["A"][i]}}.jpg' width=40% height=50%>
-                    <input type="radio" id='button-{{i}}a' name='button-{{i}}' value='a' required>A</input>
-                </label>
-                <label>
-                    <img id='{{i}}b' src='static\images\img{{i+1}}_{{experiment_data["B"][i]}}.jpg' width=40% height=50%>
-                    <input type="radio" id='button-{{i}}b' name='button-{{i}}' value='b' required>B</input>
-                </label>
-            </div>
-
-   
-
         <form method="POST">
+            <h2>For the following images, one in each pair is modified. Please select the one that you think you saw in the slideshow.
+                That is, can you tell which is the original? If you can't, make your best guess.</h2>
+   
             {% for i in range(experiment_data["num"]) %}
-            <div>
-                <label>
-                    <img id='{{i}}a' src='static\images\img{{i+1}}_{{experiment_data["A"][i]}}.jpg' width=40% height=50%>
-                    <input type="radio" id='button-{{i}}a' name='button-{{i}}' value='a' required>A</input>
-                </label>
-                <label>
-                    <img id='{{i}}b' src='static\images\img{{i+1}}_{{experiment_data["B"][i]}}.jpg' width=40% height=50%>
-                    <input type="radio" id='button-{{i}}b' name='button-{{i}}' value='b' required>B</input>
-                </label>
-            </div>
+                <div>
+                    <label>
+                        <img id='{{i}}a' src='static\images\img{{i+1}}_{{experiment_data["A"][i]}}.jpg' width=40% height=50%>
+                        <input type="radio" id='button-{{i}}a' name='button-{{i}}' value='a' required>A</input>
+                    </label>
+                    <label>
+                        <img id='{{i}}b' src='static\images\img{{i+1}}_{{experiment_data["B"][i]}}.jpg' width=40% height=50%>
+                        <input type="radio" id='button-{{i}}b' name='button-{{i}}' value='b' required>B</input>
+                    </label>
+                </div>
 
             {% endfor %}        
             <input type="submit" value="Submit">
