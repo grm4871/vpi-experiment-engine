@@ -15,4 +15,4 @@ app = create_app()
 
 # add_songs()
 if __name__ == "__main__":
-    app.run(debug=True, threaded=False)
+    app.run(debug=True, threaded=False, host='0.0.0.0')
