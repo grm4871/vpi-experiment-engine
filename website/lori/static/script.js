@@ -1,6 +1,6 @@
 const TIMER = 2;
 const MAX_STATES = 5;
-const NUM_TRIALS = 2;
+const NUM_TRIALS = 1;
 
 var trial = 0;
 var timer = TIMER;
@@ -31,7 +31,7 @@ function countDown() {
     }
 
     //End of first trial
-    if(state == MAX_STATES) {
+    if(state == MAX_STATES && TRIAL == NUM_TRIALS - 1) {
         trial++;
         counting = false;
         document.getElementById('experiment').hidden = true;
@@ -40,10 +40,11 @@ function countDown() {
     }
 
     //End of final trial
-    if (state == MAX_STATES && trial == NUM_TRIALS) {
+    if (state == MAX_STATES && TRIAL == NUM_TRIALS) {
         counting = false;
         document.getElementById('instructions').hidden = true;
         document.getElementById('test').hidden = false;
+        document.getElementById('experiment').hidden = true;
         document.getElementsByClassName('img').src = `static/images/m/{{TRIAL2[i][TRIAL]}`;
         document.getElementById('cont_button').onclick = 'finish()';
         document.getElementById('cont_button').value = "Submit";
@@ -76,14 +77,12 @@ function submitForm(images) {
         num_correct += (CORRECT[i].filter(x => images.includes(x))).length;
     }
     var num_incorrect = 5 - num_correct;
-    console.log(form);
     form.correct.value = num_correct;
     form.incorrect.value = num_incorrect;
     form.rate.value = num_incorrect / num_correct;
-    form.submit();
 }
 
-function checkBoxes() {
+function checkBoxes(event) {
     var inputs = document.getElementsByTagName("input");
     var selectedImages = [];
     var count = 0;
@@ -92,7 +91,8 @@ function checkBoxes() {
             count++;
         }
     }
-    if (count >= 5) {
+    console.log(count);
+    if (count <= 5) {
         document.getElementById('warning').hidden = true;
         for (var i = 0; i < inputs.length; i++) {
             if (inputs[i].type == "checkbox" && inputs[i].checked == true) {
@@ -104,5 +104,11 @@ function checkBoxes() {
     }
     else {
         document.getElementById('warning').hidden = false;
+        event.preventDefault();
     }
 }
+
+const form_ele = document.getElementById('submit_trial');
+form_ele.addEventListener('submit', checkBoxes);
+const begin_ele = document.getElementById('begin_button');
+begin_ele.addEventListener('click', beginExperiment);

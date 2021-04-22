@@ -19,12 +19,10 @@ def create_trial(zip_list):
 
     trial1 = zip_list[:zip_pointer]
     random.shuffle(trial1)
-    random.shuffle(trial1)
 
     correct = trial1[:int(PRES_SIZE / 2)]
 
     trial2 = correct + zip_list[zip_pointer:int(zip_pointer + PRES_SIZE / 2)]
-    random.shuffle(trial2)
     random.shuffle(trial2)
     
     zip_pointer += int(PRES_SIZE / 2)
