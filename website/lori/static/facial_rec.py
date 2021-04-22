@@ -15,19 +15,13 @@ PRES_SIZE = 10
     @return pointer keeps track of index in zip_list
 """
 def create_trial(zip_list):
-    zip_pointer = PRES_SIZE
-
-    trial1 = zip_list[:zip_pointer]
-    random.shuffle(trial1)
-
-    correct = trial1[:int(PRES_SIZE / 2)]
-
-    trial2 = correct + zip_list[zip_pointer:int(zip_pointer + PRES_SIZE / 2)]
-    random.shuffle(trial2)
     
-    zip_pointer += int(PRES_SIZE / 2)
+    trial1 = zip_list[:PRES_SIZE]
+    correct = trial1[:int(PRES_SIZE / 2)]
+    trial2 = zip_list[PRES_SIZE:len(zip_list)] + correct
+    random.shuffle(trial2)
 
-    return trial1, trial2, correct, zip_pointer
+    return trial1, trial2, correct
 
 """
     Extracts jpg images from masked file and jpeg images from unmasked file
@@ -52,6 +46,8 @@ def get_images():
 """
 def create_experiment():
     zip_lists = get_images()
-    trial1_1, trial1_2, correct1, zip_pointer = create_trial(zip_lists)
-    trial2_1, trial2_2, correct2, zip_pointer = create_trial(zip_lists[zip_pointer:])
+    sample = random.sample(zip_lists, k=30)
+
+    trial1_1, trial1_2, correct1 = create_trial(sample[:int(len(sample) / 2)])
+    trial2_1, trial2_2, correct2 = create_trial(sample[int(len(sample) / 2):])
     return trial1_1, trial1_2, correct1, trial2_1, trial2_2, correct2

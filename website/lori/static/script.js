@@ -1,5 +1,5 @@
 const TIMER = 2;
-const MAX_STATES = 3;
+const MAX_STATES = 11;
 const NUM_TRIALS = 1;
 
 var trial = 0;

@@ -54,17 +54,16 @@ def submit_trial():
     if (state['trials_done'] == 0):
         state['results'].append({
         'trial1_right': int(form_data['correct']),
-        'trial1_wrong': int(form_data['incorrect']),
-        'trial1_rate': float(form_data['rate'])
+        'trial1_wrong': int(form_data['incorrect'])
         })
     elif (state['trials_done'] == 1):
         state['results'].append({
         'trial2_right': int(form_data['correct']),
-        'trial2_wrong': int(form_data['incorrect']),
-        'trial1_rate': float(form_data['rate'])
+        'trial2_wrong': int(form_data['incorrect'])
         })
     state['trials_done'] += 1
-    state['intro_done'] = False
+    if state['trials_done'] != NUM_TRIALS:
+        state['intro_done'] = False
     set_experiment_state(state)
     return redirect(url_for('.experiment'))
 
