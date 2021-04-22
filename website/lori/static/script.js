@@ -1,5 +1,5 @@
 const TIMER = 2;
-const MAX_STATES = 11;
+const MAX_STATES = 10;
 const NUM_TRIALS = 1;
 
 var trial = 0;
@@ -43,11 +43,6 @@ function countDown() {
         counting = false;
         document.getElementById('test').hidden = false;
         document.getElementById('experiment').hidden = true;
-        var img_eles = document.getElementsByClassName('img');
-        for (let i = 0; i < img_eles.length; i++) {
-            img_eles[i].src = `static/images/m/${TRIAL2[i][TRIAL]}`;
-        }
-        // document.getElementById('cont_button').onclick = 'finish()';
         document.getElementById('cont_button').value = "Submit";
     }
 
@@ -106,5 +101,5 @@ function checkBoxes(event) {
 const form_ele = document.getElementById('submit_trial');
 form_ele.addEventListener('submit', checkBoxes);
 
-const begin_ele = document.getElementById('begin_button');
+const begin_ele = document.getElementById('cont_button');
 begin_ele.addEventListener('click', beginExperiment);

@@ -26,7 +26,7 @@ def create_trial(zip_list):
 """
     Extracts jpg images from masked file and jpeg images from unmasked file
 
-    @return unmasked-masked image pairs
+    @return unmasked-masked image pair
 """
 def get_images():
     unmasked = []
@@ -50,4 +50,5 @@ def create_experiment():
 
     trial1_1, trial1_2, correct1 = create_trial(sample[:int(len(sample) / 2)])
     trial2_1, trial2_2, correct2 = create_trial(sample[int(len(sample) / 2):])
+
     return trial1_1, trial1_2, correct1, trial2_1, trial2_2, correct2

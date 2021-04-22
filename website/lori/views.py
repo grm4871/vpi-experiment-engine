@@ -30,9 +30,11 @@ def experiment():
             result = render_template('lori/instructions.html',
             IMAGE='static/images/ex/1_masked.jpg', TRIALS_DONE=state['trials_done'])
     elif state['trials_done'] == 0:
-        result = render_template('lori/experiment.html', TRIAL1=state['trial_info'][0], TRIAL2=state['trial_info'][1], CORRECT=state['correct'][0], SET_SIZE=10, TRIAL=0)
+        result = render_template('lori/experiment.html', TRIALS_DONE=state['trials_done'], 
+        TRIAL1=state['trial_info'][0], TRIAL2=state['trial_info'][1], CORRECT=state['correct'][0], SET_SIZE=10, TRIAL=0)
     elif state['trials_done'] == 1:
-        result = render_template('lori/experiment.html', TRIAL1=state['trial_info'][2], TRIAL2=state['trial_info'][3], CORRECT=state['correct'][1], SET_SIZE=10, TRIAL=1)
+        result = render_template('lori/experiment.html', TRIALS_DONE=state['trials_done'], 
+        TRIAL1=state['trial_info'][2], TRIAL2=state['trial_info'][3], CORRECT=state['correct'][1], SET_SIZE=10, TRIAL=1)
     else:
         result = finish_experiment(state['results'])
     set_experiment_state(state)
