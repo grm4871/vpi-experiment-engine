@@ -52,23 +52,6 @@
         </form>
 
     </div>
-
-    <div id="instructions" hidden>
-        <h3>
-            Trial 2
-        </h3>
-        <p>
-            During this trial, you will be presented with 10 new faces. After the 10 faces, you will be shown 10 faces
-            with a mask. <br>
-            Select up to 5 faces that appeared. <br> <br>
-        <div class='image'>
-            Example face:<br><br>
-            <img id='ex' src="static/images/ex/1_masked.jpg" width=40%>
-        </div>
-        <input id="begin_button" type="button" value="Continue">
-        </p>
-    </div>
-
     <script>
         const TRIAL1 = {{ TRIAL1 | tojson}};
         const TRIAL2 = {{ TRIAL2 | tojson}};

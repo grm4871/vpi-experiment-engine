@@ -1,5 +1,5 @@
 const TIMER = 2;
-const MAX_STATES = 5;
+const MAX_STATES = 3;
 const NUM_TRIALS = 1;
 
 var trial = 0;
@@ -11,7 +11,6 @@ var counting = true;
 countDown(counting)
 
 function beginExperiment() {
-    document.getElementById('instructions').hidden = true;
     document.getElementById('experiment').hidden = false;
     counting = true;
     img = 0;
@@ -42,7 +41,6 @@ function countDown() {
     //End of final trial
     if (state == MAX_STATES && TRIAL == NUM_TRIALS) {
         counting = false;
-        document.getElementById('instructions').hidden = true;
         document.getElementById('test').hidden = false;
         document.getElementById('experiment').hidden = true;
         var img_eles = document.getElementsByClassName('img');
@@ -66,11 +64,6 @@ function countDown() {
 
 function displayImage(img) {
     document.getElementById('slideshow').src = `static/images/_/${TRIAL1[img][0]}`;
-}
-
-function displayInstructions() {
-    document.getElementById('instructions').hidden = false;
-    document.getElementById('test').hidden = true;
 }
 
 function submitForm(images) {
@@ -103,7 +96,6 @@ function checkBoxes(event) {
             }
         }
         submitForm(selectedImages);
-        displayInstructions();
     }
     else {
         document.getElementById('warning').hidden = false;
@@ -113,5 +105,6 @@ function checkBoxes(event) {
 
 const form_ele = document.getElementById('submit_trial');
 form_ele.addEventListener('submit', checkBoxes);
+
 const begin_ele = document.getElementById('begin_button');
 begin_ele.addEventListener('click', beginExperiment);

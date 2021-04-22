@@ -14,14 +14,20 @@
 
     <main>
         <h2>Instructions</h2>
-        <h3>Trial 1</h3>
+        <h3>Trial {{TRIALS_DONE + 1}}</h3>
         <p>
-            You'll complete {{NUM_TRIALS}} trial{{NUM_TRIALS|pluralize}}.
-            During this first trial, you will be presented 10 human faces for 5 seconds each. Try your best in memorizing them. 
-            After the 10 human faces, you will be presented with 10 more faces. Select the 5 faces that appeared in the inital 10.<br>     
+            {% if TRIALS_DONE == 0 %}
+                You'll complete {{NUM_TRIALS}} trial{{NUM_TRIALS|pluralize}}. <br>
+                During this first trial, you will be presented 10 human faces for 5 seconds each. Try your best in memorizing them. 
+                After the 10 human faces, you will be presented with 10 more faces. Select up to 5 faces that appeared in the inital 10.
+            {% elif TRIALS_DONE == 1 %}
+                During this second trial, you will be presented 10 human faces for 5 seconds each. Try your best in memorizing them. 
+                After the 10 human faces, you will be presented with 10 more faces with a facemask. Select up to 5 faces that appeared in the inital 10.
+            {% endif %}
+            <br>     
             <div class='image'>
                 Example face:<br>
-                <img id='ex' src="static/images/ex/1.jpeg" width=40%>
+                <img id='ex' src={{IMAGE}} width=40%>
             </div>
         </p>
         <form class="begin-form" method="POST" action="begin">
