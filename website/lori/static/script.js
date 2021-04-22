@@ -45,8 +45,11 @@ function countDown() {
         document.getElementById('instructions').hidden = true;
         document.getElementById('test').hidden = false;
         document.getElementById('experiment').hidden = true;
-        document.getElementsByClassName('img').src = `static/images/m/{{TRIAL2[i][TRIAL]}`;
-        document.getElementById('cont_button').onclick = 'finish()';
+        var img_eles = document.getElementsByClassName('img');
+        for (let i = 0; i < img_eles.length; i++) {
+            img_eles[i].src = `static/images/m/${TRIAL2[i][TRIAL]}`;
+        }
+        // document.getElementById('cont_button').onclick = 'finish()';
         document.getElementById('cont_button').value = "Submit";
     }
 
