@@ -1,4 +1,4 @@
-const TIMER = 2;
+const TIMER = 5;
 const MAX_STATES = 10;
 const NUM_TRIALS = 1;
 
