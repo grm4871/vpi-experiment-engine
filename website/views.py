@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for
-import random as rand #paul
+import random
 
 # from connection import get_connection
 
@@ -24,6 +24,8 @@ def favicon():
 # gets landing page
 @views.route("/")
 def home():
+    names_shuffled = NAMES.copy()
+    random.shuffle(names_shuffled)
     return render_template("site_home.html",
-        completed_names=[name for name in NAMES if is_experiment_completed(name)],
-        not_completed_names=[name for name in NAMES if not is_experiment_completed(name)])
+        completed_names=[name for name in names_shuffled if is_experiment_completed(name)],
+        not_completed_names=[name for name in names_shuffled if not is_experiment_completed(name)])
