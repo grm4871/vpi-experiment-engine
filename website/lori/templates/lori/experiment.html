@@ -12,10 +12,12 @@
 <body>
     <div id='experiment'>
         <div id='timer'>
-            Your experiment will begin in 5.
+            (loading...)
         </div>
         <br>
-        <img id='slideshow' src='' width=60%>
+        {% for img_name, _ in TRIAL1 %}
+            <img id="slideshow{{loop.index0}}" class="slideshow-img" data-src="{{url_for('.static', filename='images/_/'+img_name)}}" width=60% hidden>
+        {% endfor %}
     </div>
 
     <div id='test' hidden>
@@ -28,12 +30,12 @@
                         {% for i in range(5) %}
                             {% if TRIALS_DONE == 0 %}
                                 <label>
-                                    <li><img class='img' src='static/images/_/{{TRIAL2[i][TRIAL]}}' width=30% height=30%></li>
+                                    <li><img class='img' data-src='static/images/_/{{TRIAL2[i][TRIAL]}}' width=30% height=30%></li>
                                     <input type="checkbox" id='{{TRIAL2[i][TRIAL]}}'>
                                 </label>
                             {% elif TRIALS_DONE == 1 %}
                                 <label>
-                                    <li><img class='img' src='static/images/m/{{TRIAL2[i][TRIAL]}}' width=30% height=30%></li>
+                                    <li><img class='img' data-src='static/images/m/{{TRIAL2[i][TRIAL]}}' width=30% height=30%></li>
                                     <input type="checkbox" id='{{TRIAL2[i][TRIAL]}}'>
                                 </label>
                             {% endif %}
@@ -46,12 +48,12 @@
                         <label>
                             {% if TRIALS_DONE == 0%}
                                 <label>
-                                    <li><img class='img' src='static/images/_/{{TRIAL2[i][TRIAL]}}' width=30% height=30%></li>
+                                    <li><img class='img' data-src='static/images/_/{{TRIAL2[i][TRIAL]}}' width=30% height=30%></li>
                                     <input type="checkbox" id='{{TRIAL2[i][TRIAL]}}'>
                                 </label>
                             {% elif TRIALS_DONE == 1 %}
                             <label>
-                                <li><img class='img' src='static/images/m/{{TRIAL2[i][TRIAL]}}' width=30% height=30%></li>
+                                <li><img class='img' data-src='static/images/m/{{TRIAL2[i][TRIAL]}}' width=30% height=30%></li>
                                 <input type="checkbox" id='{{TRIAL2[i][TRIAL]}}'>
                             </label>
                             {% endif %}

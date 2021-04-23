@@ -8,7 +8,7 @@ var state = 0;
 var img = 0;
 var counting = true;
 
-countDown(counting)
+// countDown(counting)
 
 function beginExperiment() {
     document.getElementById('experiment').hidden = false;
@@ -47,18 +47,21 @@ function countDown() {
     }
 
     else if (state == 0) {
-        document.getElementById('timer').innerHTML = `Your experiment will begin in ${timer}.`
+        document.getElementById('timer').textContent = `Your experiment will begin in ${timer}.`
     }
     else if(state >= 1) {
-        document.getElementById('timer').innerHTML = `Time left: ${timer}`
+        document.getElementById('timer').textContent = `Time left: ${timer}`
     }
     if (counting) {
         window.setTimeout(countDown, 1000);
     }
 }
 
+var lastImg = 0;
 function displayImage(img) {
-    document.getElementById('slideshow').src = `static/images/_/${TRIAL1[img][0]}`;
+    document.getElementById('slideshow'+lastImg).hidden = true;
+    document.getElementById('slideshow'+img).hidden = false;
+    lastImg = img;
 }
 
 function submitForm(images) {
@@ -99,7 +102,47 @@ function checkBoxes(event) {
 }
 
 const form_ele = document.getElementById('submit_trial');
-form_ele.addEventListener('submit', checkBoxes);
+if (form_ele !== null) {
+    form_ele.addEventListener('submit', checkBoxes);
+}
 
 const begin_ele = document.getElementById('begin-form');
-begin_ele.addEventListener('click', beginExperiment);
+if (begin_ele !== null) {
+    begin_ele.addEventListener('click', beginExperiment);
+}
+
+
+
+
+// code for waiting until all the images have loaded
+var loadingMsg = document.getElementById('timer');
+
+var lazyImgs = document.querySelectorAll('img[data-src]');
+var numLoadedImgs = 0;
+var errorred = false;
+function registerLazyImg(img) {
+    function imgLoaded() {
+        console.log('imgLoaded:', img.id);
+        img.removeEventListener('load', imgLoaded);
+        numLoadedImgs++;
+        if (numLoadedImgs === lazyImgs.length) {
+            console.log('all loaded!');
+            countDown();
+        } else if (!errorred) {
+            var p = numLoadedImgs / lazyImgs.length;
+            loadingMsg.textContent = `(loading images: ${Math.floor(p*100)}%)`;
+        }
+    }
+    function imgError() {
+        console.log('imgError:', img.id);
+        img.removeEventListener('error', imgError);
+        errorred = true;
+        loadingMsg.textContent = "(couldn't load all images; try reloading the page)";
+    }
+    img.addEventListener('load', imgLoaded);
+    img.addEventListener('error', imgError);
+    img.src = img.getAttribute('data-src');
+}
+for (let i = 0; i < lazyImgs.length; i++) {
+    registerLazyImg(lazyImgs[i]);
+}

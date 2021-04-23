@@ -15,7 +15,7 @@ html, body {
     text-align: center;
 }
 
-#ex, #slideshow {
+#ex, .slideshow-img:not([hidden]) {
     display: block;
     margin-left: auto;
     margin-right: auto;
