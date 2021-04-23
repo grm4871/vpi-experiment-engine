@@ -94,28 +94,32 @@
         var lazyImgs = document.querySelectorAll('img[data-src]');
         var numLoadedImgs = 0;
         var errorred = false;
-        function imgLoaded(i) {
-            console.log('imgLoaded:', i);
-            numLoadedImgs++;
-            if (numLoadedImgs === lazyImgs.length) {
-                console.log('all loaded!');
-                loadingMsg.textContent = '';
-                readyButton.disabled = false;
-            } else if (!errorred) {
-                var p = numLoadedImgs / lazyImgs.length;
-                loadingMsg.textContent = `(loading images: ${Math.floor(p*100)}%)`;
+        function registerLazyImg(img) {
+            function imgLoaded() {
+                console.log('imgLoaded:', img.id);
+                img.removeEventListener('load', imgLoaded);
+                numLoadedImgs++;
+                if (numLoadedImgs === lazyImgs.length) {
+                    console.log('all loaded!');
+                    loadingMsg.textContent = '';
+                    readyButton.disabled = false;
+                } else if (!errorred) {
+                    var p = numLoadedImgs / lazyImgs.length;
+                    loadingMsg.textContent = `(loading images: ${Math.floor(p*100)}%)`;
+                }
             }
-        }
-        function imgError(i) {
-            console.log('imgError:', i);
-            errorred = true;
-            loadingMsg.textContent = "(couldn't load all images; try reloading the page)";
+            function imgError() {
+                console.log('imgError:', img.id);
+                img.removeEventListener('error', imgError);
+                errorred = true;
+                loadingMsg.textContent = "(couldn't load all images; try reloading the page)";
+            }
+            img.addEventListener('load', imgLoaded);
+            img.addEventListener('error', imgError);
+            img.src = img.getAttribute('data-src');
         }
         for (let i = 0; i < lazyImgs.length; i++) {
-            var img = lazyImgs[i];
-            img.addEventListener('load', () => imgLoaded(i));
-            img.addEventListener('error', () => imgError(i));
-            img.src = img.getAttribute('data-src');
+            registerLazyImg(lazyImgs[i]);
         }
     </script>
 
