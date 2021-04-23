@@ -101,5 +101,5 @@ function checkBoxes(event) {
 const form_ele = document.getElementById('submit_trial');
 form_ele.addEventListener('submit', checkBoxes);
 
-const begin_ele = document.getElementById('cont_button');
+const begin_ele = document.getElementById('begin-form');
 begin_ele.addEventListener('click', beginExperiment);

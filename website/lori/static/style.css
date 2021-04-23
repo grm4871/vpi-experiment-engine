@@ -29,3 +29,7 @@ ul, li {
     list-style: none;
     display: inline;
 }
+
+#experiment, #test {
+    margin-top: 20px;
+}
