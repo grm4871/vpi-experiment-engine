@@ -20,17 +20,23 @@
 
     <div id='test' hidden>
         <b>There are up to 5 faces that was shown in the slideshow. Pick the faces that you know appeared.</b>
-        <b id='warning' hidden>Please select 5 faces</b>
+        <b id='warning' hidden>Please select up to 5 faces</b>
         <form id='submit_trial' method="POST" action='submit-trial'>
             <div id="images">
                 <div>
                     <ul>
                         {% for i in range(5) %}
-                        <label>
-                            <li><img class='img' src='static/images/_/{{TRIAL2[i][TRIAL]}}' width=30% height=30%></li>
-                            <input type="checkbox" id='{{TRIAL2[i][TRIAL]}}'>
-                        </label>
-
+                            {% if TRIALS_DONE == 0 %}
+                                <label>
+                                    <li><img class='img' src='static/images/_/{{TRIAL2[i][TRIAL]}}' width=30% height=30%></li>
+                                    <input type="checkbox" id='{{TRIAL2[i][TRIAL]}}'>
+                                </label>
+                            {% elif TRIALS_DONE == 1 %}
+                                <label>
+                                    <li><img class='img' src='static/images/m/{{TRIAL2[i][TRIAL]}}' width=30% height=30%></li>
+                                    <input type="checkbox" id='{{TRIAL2[i][TRIAL]}}'>
+                                </label>
+                            {% endif %}
                         {% endfor %}
                     </ul>
                 </div>
@@ -38,8 +44,17 @@
                     <ul>
                         {% for i in range(5, SET_SIZE) %}
                         <label>
-                            <li><img class='img' src='static/images/_/{{TRIAL2[i][TRIAL]}}' width=30% height=30%></li>
-                            <input type="checkbox" id='{{TRIAL2[i][TRIAL]}}'>
+                            {% if TRIALS_DONE == 0%}
+                                <label>
+                                    <li><img class='img' src='static/images/_/{{TRIAL2[i][TRIAL]}}' width=30% height=30%></li>
+                                    <input type="checkbox" id='{{TRIAL2[i][TRIAL]}}'>
+                                </label>
+                            {% elif TRIALS_DONE == 1 %}
+                            <label>
+                                <li><img class='img' src='static/images/m/{{TRIAL2[i][TRIAL]}}' width=30% height=30%></li>
+                                <input type="checkbox" id='{{TRIAL2[i][TRIAL]}}'>
+                            </label>
+                            {% endif %}
                         </label>
                         {% endfor %}
                     </ul>
@@ -48,27 +63,9 @@
             <input id='cont_button' type="submit" value="Continue">
             <input type='hidden' name='correct' value=''>
             <input type='hidden' name='incorrect' value=''>
-            <input type='hidden' name='rate' value=''>
         </form>
 
     </div>
-
-    <div id="instructions" hidden>
-        <h3>
-            Trial 2
-        </h3>
-        <p>
-            During this trial, you will be presented with 10 new faces. After the 10 faces, you will be shown 10 faces
-            with a mask. <br>
-            Select up to 5 faces that appeared. <br> <br>
-        <div class='image'>
-            Example face:<br><br>
-            <img id='ex' src="static/images/ex/1_masked.jpg" width=40%>
-        </div>
-        <input id="begin_button" type="button" value="Continue">
-        </p>
-    </div>
-
     <script>
         const TRIAL1 = {{ TRIAL1 | tojson}};
         const TRIAL2 = {{ TRIAL2 | tojson}};
