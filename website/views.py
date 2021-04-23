@@ -12,6 +12,15 @@ def is_experiment_completed(name):
     key = name.lower() + '_done'
     return key in session and session[key]
 
+# gets favicon
+import os
+from flask import send_from_directory
+
+@views.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(views.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
 # gets landing page
 @views.route("/")
 def home():
