@@ -35,7 +35,6 @@ function countDown() {
         counting = false;
         document.getElementById('experiment').hidden = true;
         document.getElementById('test').hidden = false;
-        document.getElementById('slideshow').src = ``;
     }
 
     //End of final trial
