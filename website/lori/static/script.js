@@ -66,13 +66,12 @@ function displayImage(img) {
 function submitForm(images) {
     const form = document.forms['submit_trial'];
     var num_correct = 0;    
-    for (var i = 0; i < images.length; i++) {
+    for (var i = 0; i < CORRECT.length; i++) {
         num_correct += (CORRECT[i].filter(x => images.includes(x))).length;
     }
     var num_incorrect = 5 - num_correct;
     form.correct.value = num_correct;
     form.incorrect.value = num_incorrect;
-    form.rate.value = num_incorrect / num_correct;
 }
 
 function checkBoxes(event) {
@@ -97,6 +96,7 @@ function checkBoxes(event) {
     else {
         document.getElementById('warning').hidden = false;
         event.preventDefault();
+        alert("Please select no more than 5 images.");
     }
 }
 
