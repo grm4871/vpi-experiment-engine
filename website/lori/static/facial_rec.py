@@ -19,6 +19,7 @@ def create_trial(zip_list):
     trial1 = zip_list[:PRES_SIZE]
     correct = trial1[:int(PRES_SIZE / 2)]
     trial2 = zip_list[PRES_SIZE:len(zip_list)] + correct
+    random.shuffle(trial1)
     random.shuffle(trial2)
 
     return trial1, trial2, correct
